@@ -177,22 +177,6 @@ function install_plugins() {
   hash="77dcc9cd133221b5fbbc8bd783468038ed1895d744f77412752b1267d4b8d4b1"
   name="redmine_lightbox2"
   /install-redmine-plugin.sh "$src" "$name" "$hash"
-
-  src="https://bitbucket.org/dkuk/a_common_libs.git"
-  name="a_common_libs"
-  /install-redmine-plugin.sh "$src" "$name"
-
-  src="https://bitbucket.org/dkuk/global_roles"
-  name="global_roles"
-  /install-redmine-plugin.sh "$src" "$name"
-
-  src="https://bitbucket.org/dkuk/usability.git"
-  name="usability"
-  /install-redmine-plugin.sh "$src" "$name"
-
-  src="https://bitbucket.org/dkuk/unread_issues.git"
-  name="unread_issues"
-  /install-redmine-plugin.sh "$src" "$name"
 }
 
 function install_themes() {
@@ -205,10 +189,6 @@ function install_themes() {
   hash="602f731af304f432616e076395a6254b8f1d60d748a583b1b4cd57444be97965"
   name="redmine-improved-theme"
   /install-redmine-plugin.sh "$src" "$name" "$hash"
-
-  src="https://bitbucket.org/dkuk/redmine_alex_skin.git"
-  name="redmine_alex_skin"
-  /install-redmine-plugin.sh "$src" "$name"
 }
 
 cd "$WEB_ROOT"
