@@ -126,11 +126,18 @@ YML
       fi
       if [ "$1" != 'rake' -a -z "$REDMINE_NO_DB_MIGRATE" ]; then
         rake db:migrate
-      fi=- 
+      fi
       
       # remove PID file to enable restarting the container
       rm -f tmp/pids/server.pid
       
+      # https://www.redmine.org/projects/redmine/wiki/RedmineInstall#Step-8-File-system-permissions
+      chown -R redmine:redmine files log public/plugin_assets
+      chmod -R 755 files log tmp public/plugin_assets
+      
+      if [ "$1" != 'rake' -a -n "$REDMINE_PLUGINS_MIGRATE" ]; then
+        rake redmine:plugins:migrate
+      fi
       ;;
   esac
 }
