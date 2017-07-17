@@ -19,15 +19,9 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y \
     rsync \
-    python-pip \
     unzip \
     coreutils \
   && rm -rf /var/lib/apt/lists/* \
-  && pip install -U  pip setuptools \
-  && easy_install supervisor \
-  && chmod o+rwX /var/run \
-  && mkdir -p /var/log/supervisord \
-  && chmod o+rwX /var/log/supervisord \
   && chmod o+rwX /var/log
 
 # redmine
@@ -42,21 +36,11 @@ RUN set -x \
   && mkdir -p /passenger-in \
   && chown -R ${WEB_USER} /passenger-in
 
-# supervisor
-
-ADD rootfs/supervisord.conf /etc/supervisord.conf
-
 # passender
 
 ENV NGINX_WORKER_PROCESSES 2
 ENV NGINX_WORKER_CONNECTIONS 4096
 ENV NGINX_CLIENT_MAX_BODY_SIZE 1g
-
-# rsync daemon
-
-ADD rootfs/rsyncd.conf /etc/rsyncd.conf
-
-EXPOSE 8873
 
 # Finishing up.
 
@@ -77,4 +61,4 @@ WORKDIR ${WEB_ROOT}
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-CMD ["supervisord", "-n", "-c", "/etc/supervisord.conf"]
+CMD ["passenger", "start", "--nginx-config-template", "/etc/passenger/nginx.conf.erb"]

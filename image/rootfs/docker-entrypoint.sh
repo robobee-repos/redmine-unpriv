@@ -137,9 +137,9 @@ YML
 
 function replace_nginx() {
   cd /etc/passenger
-  sed -i -e "s/worker_processes 1;/worker_processes ${NGINX_WORKER_PROCESSES};/" nginx.conf.erb
-  sed -i -e "s/worker_connections 4096;/worker_connections ${NGINX_WORKER_CONNECTIONS};/" nginx.conf.erb
-  sed -i -e "s/client_max_body_size 1024m;/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" nginx.conf.erb
+  sed -i -e "s/worker_processes \d+;/worker_processes ${NGINX_WORKER_PROCESSES};/" nginx.conf.erb
+  sed -i -e "s/worker_connections \d+;/worker_connections ${NGINX_WORKER_CONNECTIONS};/" nginx.conf.erb
+  sed -i -e "s/client_max_body_size \d+m;/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" nginx.conf.erb
 }
 
 function setup_redmine() {
@@ -151,6 +151,8 @@ function setup_redmine() {
     cp $(passenger-config about resourcesdir)/templates/standalone/config.erb nginx.conf.erb
     replace_nginx
   fi
+  echo "Used nginx.conf.erb:"
+  cat nginx.conf.erb
 }
 
 function install_plugins() {
@@ -204,7 +206,6 @@ function install_themes() {
 
 cd "$WEB_ROOT"
 echo "Running as `id`"
-[[ `check_files_exists '/var/run/rsyncd.pid'` ]] && rm /var/run/rsyncd.pid
 sync_redmine
 start_redmine passenger start
 setup_redmine
