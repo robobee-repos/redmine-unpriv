@@ -1,13 +1,15 @@
 include ../utils/Makefile.help
 include ../utils/Makefile.functions
 
-up: ##@targets Starts docker compose.
-	docker-compose -f redmine-unpriv-test.yaml up
+NAME := redmine-unpriv
+
+test: ##@targets Starts test containers.
+	docker-compose -p ${NAME} -f test.yaml up
 .PHONY: up
 
-stop: ##@targets Stops docker containers.
-	docker-compose -f redmine-unpriv-test.yaml stop
+stop: ##@targets Stops test containers.
+	docker-compose -p ${NAME} -f test.yaml stop
 
 clean: stop ##@targets Removes docker containers and created files.
-	docker-compose -f redmine-unpriv-test.yaml rm
+	docker-compose -p ${NAME} -f test.yaml rm
 
