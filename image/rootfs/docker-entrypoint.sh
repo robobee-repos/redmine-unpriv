@@ -161,8 +161,8 @@ function install_plugins() {
   name="redmine_custom_css"
   /install-redmine-plugin.sh "$src" "$name" "$hash"
 
-  src="https://github.com/haru/redmine_theme_changer/releases/download/0.3.0/redmine_theme_changer-0.3.0.zip"
-  hash="8af1d3346dbd05e6644e243f7d969a21a498b924b0473bcb5c803e400f4ea0a4"
+  src="https://github.com/haru/redmine_theme_changer/archive/0.2.0.zip"
+  hash="f38ec457cd73d2cf1eaaaaf04c7baf178c6205afc624812d123d1846780f3e6f"
   name="redmine_theme_changer"
   /install-redmine-plugin.sh "$src" "$name" "$hash"
 
