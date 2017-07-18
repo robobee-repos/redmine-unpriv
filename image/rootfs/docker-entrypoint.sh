@@ -126,7 +126,7 @@ YML
       fi
       if [ "$1" != 'rake' -a -z "$REDMINE_NO_DB_MIGRATE" ]; then
         rake db:migrate
-      fi=- 
+      fi
       
       # remove PID file to enable restarting the container
       rm -f tmp/pids/server.pid
