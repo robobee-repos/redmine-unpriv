@@ -22,6 +22,10 @@ function install_git() {
   mv "$NAME" "${WEB_ROOT}/public/themes/$NAME"
 }
 
+if [ -d "${WEB_ROOT}/themes/${NAME}" ]; then
+  rm -rf "${WEB_ROOT}/themes/${NAME}"
+fi
+
 case $EXTENSION in
   zip)
   HASH="$1"; shift

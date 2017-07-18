@@ -21,6 +21,10 @@ function install_git() {
   mv "$NAME" "${WEB_ROOT}/plugins/${NAME}"
 }
 
+if [ -d "${WEB_ROOT}/plugins/${NAME}" ]; then
+  rm -rf "${WEB_ROOT}/plugins/${NAME}"
+fi
+
 case $EXTENSION in
   zip)
   HASH="$1"; shift
