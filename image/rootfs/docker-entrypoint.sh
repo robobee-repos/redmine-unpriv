@@ -137,9 +137,9 @@ YML
 
 function replace_nginx() {
   cd /etc/passenger
-  sed -i -e "s/worker_processes \d+;/worker_processes ${NGINX_WORKER_PROCESSES};/" nginx.conf.erb
-  sed -i -e "s/worker_connections \d+;/worker_connections ${NGINX_WORKER_CONNECTIONS};/" nginx.conf.erb
-  sed -i -e "s/client_max_body_size \d+m;/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" nginx.conf.erb
+  sed -i -e "s/worker_processes [[:digit:]]\+;/worker_processes ${NGINX_WORKER_PROCESSES};/" nginx.conf.erb
+  sed -i -e "s/worker_connections [[:digit:]]\+;/worker_connections ${NGINX_WORKER_CONNECTIONS};/" nginx.conf.erb
+  sed -i -e "s/client_max_body_size [[:digit:]]\+m;/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" nginx.conf.erb
 }
 
 function setup_redmine() {
