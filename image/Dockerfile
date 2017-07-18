@@ -43,18 +43,33 @@ ENV NGINX_WORKER_PROCESSES 2
 ENV NGINX_WORKER_CONNECTIONS 4096
 ENV NGINX_CLIENT_MAX_BODY_SIZE 128m
 
-# Finishing up.
+# Install plugins and themes.
 
-ADD rootfs/docker-entrypoint.sh /docker-entrypoint.sh
 ADD rootfs/install-redmine-plugin.sh /install-redmine-plugin.sh
 ADD rootfs/install-redmine-theme.sh /install-redmine-theme.sh
 ADD rootfs/install-redmine-utils.sh /install-redmine-utils.sh
+ADD rootfs/install_plugins.sh /install_plugins.sh
+ADD rootfs/install_themes.sh /install_themes.sh
 
 RUN set -x \
-  && chmod +x /docker-entrypoint.sh \
   && chmod +x /install-redmine-plugin.sh \
   && chmod +x /install-redmine-theme.sh \
-  && chmod +x /install-redmine-utils.sh
+  && chmod +x /install-redmine-utils.sh \
+  && chmod +x /install_plugins.sh \
+  && chmod +x /install_themes.sh
+
+RUN set -x \
+  && /install_plugins.sh
+
+RUN set -x \
+  && /install_themes.sh
+
+# Finishing up.
+
+ADD rootfs/docker-entrypoint.sh /docker-entrypoint.sh
+
+RUN set -x \
+  && chmod +x /docker-entrypoint.sh
 
 USER ${WEB_USER}
 
