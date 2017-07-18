@@ -22,6 +22,7 @@ RUN set -x \
     unzip \
     coreutils \
   && rm -rf /var/lib/apt/lists/* \
+  && gem install bundler -v 1.15.2 \
   && chmod o+rwX /var/log
 
 # redmine
