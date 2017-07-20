@@ -1,6 +1,6 @@
 REPOSITORY := erwin82
 NAME := redmine-unpriv
-VERSION ?= v3.4.1-passenger-r1-1
+VERSION ?= v3.4.1-passenger-1-1
 
 build: _build ##@targets Builds the docker image.
 
