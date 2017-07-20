@@ -98,10 +98,17 @@ RUN set -x \
   && /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 RUN set -x \
-  && src="https://github.com/bradbeattie/redmine-graphs-plugin/archive/3d44b4f44295b22ec4ba50e0ca1ff7af44da7379.zip" \
-  && hash="670e1856a1978c1fcc76be54b6e5106cb0b09033f787d4c2c8c6bb53e8f762df" \
-  && name="redmine-graphs-plugin" \
+  # https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
+  && src="https://cloud.muellerpublic.de/s/sJJRQxzg7Z0ODND/download" \
+  && hash="978cd0f28a7063f01c0e997972987e841dc6e1be107accac14ec7298c13f87d8" \
+  && name="redmine_wiki_extensions" \
   && /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
+RUN set -x \
+  # redmine_issue_templates
+  && src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.6.zip" \
+  && hash="d5d568aefe8f8e7407cc2e824d13c3903fc82583fd769512668563a5bebdbf57" \
+  && name="redmine_issue_templates"
 
 RUN set -x \
   # https://github.com/oklas/redmine-color-tasks
