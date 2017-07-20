@@ -42,6 +42,9 @@ case $EXTENSION in
   git)
   install_git
   ;;
+  *)
+  install_zip
+  ;;
 esac
 
 if [[ "x$INSTALL_MODE" == "xdownloadOnly" ]]; then
