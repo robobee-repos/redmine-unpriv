@@ -138,11 +138,60 @@ YML
   fi
 }
 
+# see http://stackoverflow.com/a/2705678/433558
+sed_escape_lhs() {
+  echo "$@" | sed -e 's/[]\/$*.^|[]/\\&/g'
+}
+
+sed_escape_rhs() {
+  echo "$@" | sed -e 's/[\/&]/\\&/g'
+}
+
 function replace_nginx() {
   cd /etc/passenger
   sed -i -e "s/worker_processes [[:digit:]]\+;/worker_processes ${NGINX_WORKER_PROCESSES};/" nginx.conf.erb
   sed -i -e "s/worker_connections [[:digit:]]\+;/worker_connections ${NGINX_WORKER_CONNECTIONS};/" nginx.conf.erb
   sed -i -e "s/client_max_body_size [[:digit:]]\+m;/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" nginx.conf.erb
+  local nginx_http_append=$(mktemp)
+  trap "{ rm -f $nginx_http_append; }" EXIT
+  cat > $nginx_http_append << "EOM"
+    sendfile on;
+    ### BEGIN your own configuration options ###
+EOM
+  sed -i -e "/    ### BEGIN your own configuration options ###/r $nginx_http_append" nginx.conf.erb
+  local nginx_server_append=$(mktemp)
+  trap "{ rm -f $nginx_server_append; }" EXIT
+  cat > $nginx_server_append << "EOM"
+        #
+        location = /favicon.ico {
+          log_not_found off;
+          access_log off;
+        }
+        #
+        location = /robots.txt {
+          allow all;
+          log_not_found off;
+          access_log off;
+        }
+        # Deny all attempts to access hidden nginx_server_appends such as .htaccess, .htpasswd, .DS_Store (Mac).
+        # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
+        location ~ /\. {
+          deny all;
+        }
+        # Deny access to any nginx_server_appends with a .rb extension in the uploads directory
+        # Works in sub-directory installs and also in multisite network
+        # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
+        location ~* /(?:uploads|nginx_server_appends)/.*\.rb$ {
+          deny all;
+        }
+        #
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico|html|htm)$ {
+          expires max;
+          log_not_found off;
+        }
+        ### BEGIN your own configuration options ###
+EOM
+  sed -i -e "/        ### BEGIN your own configuration options ###/r $nginx_server_append" nginx.conf.erb
 }
 
 function setup_redmine() {
