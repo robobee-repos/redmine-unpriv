@@ -108,7 +108,8 @@ RUN set -x \
   # redmine_issue_templates
   && src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.6.zip" \
   && hash="d5d568aefe8f8e7407cc2e824d13c3903fc82583fd769512668563a5bebdbf57" \
-  && name="redmine_issue_templates"
+  && name="redmine_issue_templates" \
+  && /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 RUN set -x \
   # https://github.com/oklas/redmine-color-tasks
