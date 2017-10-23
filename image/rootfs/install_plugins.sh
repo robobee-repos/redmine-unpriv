@@ -1,18 +1,21 @@
 #!/bin/bash
 set -ex
 
+# https://github.com/martin-denizet/redmine_custom_css
 src="https://github.com/martin-denizet/redmine_custom_css/archive/0.1.6.zip"
 hash="48031a1975aca11fede5d17691d299764661bbd5f29a3a6d77a61737d96d1814"
 name="redmine_custom_css"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-src="https://github.com/haru/redmine_theme_changer/releases/download/0.3.0/redmine_theme_changer-0.3.0.zip"
-hash="8af1d3346dbd05e6644e243f7d969a21a498b924b0473bcb5c803e400f4ea0a4"
+# https://github.com/haru/redmine_theme_changer
+src="https://github.com/haru/redmine_theme_changer/releases/download/0.3.1/redmine_theme_changer-0.3.1.zip"
+hash="3ceedaafae55a575d415c009283f44b89e0160378962ed64b20e4c622ca3f61c"
 name="redmine_theme_changer"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-src="https://github.com/paginagmbh/redmine_lightbox2/archive/v0.3.2.zip"
-hash="77dcc9cd133221b5fbbc8bd783468038ed1895d744f77412752b1267d4b8d4b1"
+# https://github.com/paginagmbh/redmine_lightbox2
+src="https://github.com/paginagmbh/redmine_lightbox2/archive/v0.4.3.zip"
+hash="108540476aa71904f96ba5abfa65c7b48c33c19b7226fface0b84d91ae2a8dba"
 name="redmine_lightbox2"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
@@ -23,18 +26,19 @@ name="clipboard_image_paste"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
-src="https://cloud.muellerpublic.de/s/sJJRQxzg7Z0ODND/download"
+src="https://bbuseruploads.s3.amazonaws.com/69caaaae-e3d7-4686-aa78-bb3c266309f0/downloads/431678fd-36f2-4126-8adb-c0ac2f62b560/redmine_wiki_extensions-0.8.0.zip?Signature=T%2BkPa6bWBrTZTe3wF%2BDTPuhQJPA%3D&Expires=1508712801&AWSAccessKeyId=AKIAIQWXW6WLXMB5QZAQ&versionId=9cykipBGCw3Xf0UoT9xLGs.FwPSCUFWB&response-content-disposition=attachment%3B%20filename%3D%22redmine_wiki_extensions-0.8.0.zip%22"
 hash="978cd0f28a7063f01c0e997972987e841dc6e1be107accac14ec7298c13f87d8"
 name="redmine_wiki_extensions"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-# https://www.r-labs.org/projects/issue-template
-src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.6.zip"
-hash="d5d568aefe8f8e7407cc2e824d13c3903fc82583fd769512668563a5bebdbf57"
+# https://github.com/akiko-pusu/redmine_issue_templates
+src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.8.zip"
+hash="17d56479df2d3242f14375dd706a97e6b3d6f838949f80a67af9e6d03b0ecf97"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-src="https://github.com/bradbeattie/redmine-graphs-plugin/archive/3d44b4f44295b22ec4ba50e0ca1ff7af44da7379.zip"
-hash="670e1856a1978c1fcc76be54b6e5106cb0b09033f787d4c2c8c6bb53e8f762df"
+# https://github.com/bradbeattie/redmine-graphs-plugin
+src="https://github.com/bradbeattie/redmine-graphs-plugin/archive/a625da416d7f180a1d8520bfbb915e4138495a65.zip"
+hash="a154ced7cef25293ca41e6f46d3babc951d9a723b2d276bbe1c8b61c94ae1ba3"
 name="redmine-graphs-plugin"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly

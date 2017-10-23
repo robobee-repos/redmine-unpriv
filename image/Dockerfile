@@ -1,10 +1,11 @@
-FROM redmine:3.4.1-passenger
+FROM redmine:3.4.3-passenger
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
-ENV WEB_ROOT /var/www/html
-ENV WEB_USER redmine
-ENV SRC_DIR /usr/src/redmine
+
+ENV WEB_ROOT="/var/www/html" \
+  WEB_USER="redmine" \
+  SRC_DIR="/usr/src/redmine"
 
 RUN set -x \
   # Optional add proxy entries for apt.
@@ -22,7 +23,8 @@ RUN set -x \
     unzip \
     coreutils \
   && rm -rf /var/lib/apt/lists/* \
-  && gem install bundler -v 1.15.2 \
+  && gem install bundler -v 1.15.4 \
+  && gem install yard \
   && chmod o+rwX /var/log
 
 # redmine
@@ -39,24 +41,16 @@ RUN set -x \
 
 # passender
 
-ENV NGINX_WORKER_PROCESSES 2
-ENV NGINX_WORKER_CONNECTIONS 4096
-ENV NGINX_CLIENT_MAX_BODY_SIZE 128m
+ENV NGINX_WORKER_PROCESSES="2" \
+  NGINX_WORKER_CONNECTIONS="4096" \
+  NGINX_CLIENT_MAX_BODY_SIZE="128m"
 
 # Install plugins and themes.
 
-ADD rootfs/install-redmine-plugin.sh /install-redmine-plugin.sh
-ADD rootfs/install-redmine-theme.sh /install-redmine-theme.sh
-ADD rootfs/install-redmine-utils.sh /install-redmine-utils.sh
-ADD rootfs/install_plugins.sh /install_plugins.sh
-ADD rootfs/install_themes.sh /install_themes.sh
+ADD rootfs/ /
 
 RUN set -x \
-  && chmod +x /install-redmine-plugin.sh \
-  && chmod +x /install-redmine-theme.sh \
-  && chmod +x /install-redmine-utils.sh \
-  && chmod +x /install_plugins.sh \
-  && chmod +x /install_themes.sh
+  && chmod +x /*.sh
 
 RUN set -x \
   && /install_plugins.sh
@@ -66,10 +60,7 @@ RUN set -x \
 
 # Finishing up.
 
-ADD rootfs/docker-entrypoint.sh /docker-entrypoint.sh
-
-RUN set -x \
-  && chmod +x /docker-entrypoint.sh
+VOLUME /var/www/html
 
 USER ${WEB_USER}
 
