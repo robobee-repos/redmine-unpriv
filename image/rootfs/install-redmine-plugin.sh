@@ -36,6 +36,9 @@ if [ -d "${DEST}/plugins/${NAME}" ]; then
 fi
 
 case $EXTENSION in
+  zip?dl=0)
+  install_zip
+  ;;
   zip)
   install_zip
   ;;
