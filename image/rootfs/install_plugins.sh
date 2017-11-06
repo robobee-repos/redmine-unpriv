@@ -37,8 +37,3 @@ hash="17d56479df2d3242f14375dd706a97e6b3d6f838949f80a67af9e6d03b0ecf97"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-# https://github.com/bradbeattie/redmine-graphs-plugin
-# src="https://github.com/bradbeattie/redmine-graphs-plugin/archive/a625da416d7f180a1d8520bfbb915e4138495a65.zip"
-# hash="a154ced7cef25293ca41e6f46d3babc951d9a723b2d276bbe1c8b61c94ae1ba3"
-# name="redmine-graphs-plugin"
-# /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
