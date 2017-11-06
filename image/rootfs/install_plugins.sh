@@ -37,3 +37,8 @@ hash="17d56479df2d3242f14375dd706a97e6b3d6f838949f80a67af9e6d03b0ecf97"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
+# https://redmine.ociotec.com/projects/advanced-roadmap
+src="https://redmine.ociotec.com/attachments/download/471/advanced_roadmap%20v0.11.0.tar.gz"
+hash="3bcc52e113dd19e0d7141e6525a9948df0f22522b9918cdb48b381c6c5ac0e7a"
+name="advanced_roadmap"
+/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly

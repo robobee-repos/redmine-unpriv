@@ -25,6 +25,14 @@ function install_zip() {
   mv "${NAME}" "${DEST}/plugins/${NAME}"
 }
 
+function install_gz() {
+  cd /tmp
+  download_file
+  tar xf "${FILE}"
+  rm "${FILE}"
+  mv "${NAME}" "${DEST}/plugins/${NAME}"
+}
+
 function install_git() {
   cd /tmp
   git clone --depth 1 "$SRC" "$NAME"
@@ -44,6 +52,9 @@ case $EXTENSION in
   ;;
   git)
   install_git
+  ;;
+  gz)
+  install_gz
   ;;
   *)
   install_zip
