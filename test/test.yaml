@@ -3,14 +3,14 @@ version: '3.1'
 services:
 
   redmine:
-    image: erwin82/redmine-unpriv:latest
+    image: erwin82/redmine:latest
     ports:
       - 8080:3000
     environment:
-      REDMINE_DB_MYSQL: mariadb
-      REDMINE_DB_USERNAME: redmine
-      REDMINE_DB_DATABASE: redmine
-      REDMINE_DB_PASSWORD: example
+      REDMINE_DB_MYSQL: "mariadb"
+      REDMINE_DB_USERNAME: "redmine"
+      REDMINE_DB_DATABASE: "redmine"
+      REDMINE_DB_PASSWORD: "example"
       REDMINE_PLUGINS_MIGRATE: "true"
     links:
       - mariadb

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xe
 
 function download_file() {
   cd /tmp

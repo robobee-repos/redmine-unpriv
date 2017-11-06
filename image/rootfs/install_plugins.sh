@@ -26,7 +26,7 @@ name="clipboard_image_paste"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
-src="https://bbuseruploads.s3.amazonaws.com/69caaaae-e3d7-4686-aa78-bb3c266309f0/downloads/431678fd-36f2-4126-8adb-c0ac2f62b560/redmine_wiki_extensions-0.8.0.zip?Signature=T%2BkPa6bWBrTZTe3wF%2BDTPuhQJPA%3D&Expires=1508712801&AWSAccessKeyId=AKIAIQWXW6WLXMB5QZAQ&versionId=9cykipBGCw3Xf0UoT9xLGs.FwPSCUFWB&response-content-disposition=attachment%3B%20filename%3D%22redmine_wiki_extensions-0.8.0.zip%22"
+src="https://www.dropbox.com/s/4ffd2o0a2sxcfrm/redmine_wiki_extensions-0.8.0.zip?dl=0"
 hash="978cd0f28a7063f01c0e997972987e841dc6e1be107accac14ec7298c13f87d8"
 name="redmine_wiki_extensions"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
@@ -38,7 +38,7 @@ name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/bradbeattie/redmine-graphs-plugin
-src="https://github.com/bradbeattie/redmine-graphs-plugin/archive/a625da416d7f180a1d8520bfbb915e4138495a65.zip"
-hash="a154ced7cef25293ca41e6f46d3babc951d9a723b2d276bbe1c8b61c94ae1ba3"
-name="redmine-graphs-plugin"
-/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+# src="https://github.com/bradbeattie/redmine-graphs-plugin/archive/a625da416d7f180a1d8520bfbb915e4138495a65.zip"
+# hash="a154ced7cef25293ca41e6f46d3babc951d9a723b2d276bbe1c8b61c94ae1ba3"
+# name="redmine-graphs-plugin"
+# /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
