@@ -1,24 +1,5 @@
 #!/bin/bash
-set -xe
-
-function check_files_exists() {
-  ls "$1" 1> /dev/null 2>&1
-}
-
-function copy_file() {
-  file="$1"; shift
-  dir="$1"; shift
-  mod="$1"; shift
-  if [ -e "$file" ]; then
-    cp "$file" $dir/"$file"
-    chmod $mod $dir/"$file"
-  fi
-}
-
-function sync_redmine() {
-  cd "$WEB_ROOT"
-  rsync -rlD -u /usr/src/redmine/. .
-}
+set -e
 
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
@@ -207,33 +188,16 @@ function setup_redmine() {
   cat nginx.conf.erb
 }
 
-function install_plugins() {
-  return
-}
-
-function install_themes() {
-  return
-}
-
-function install_dashboard() {
-  cd ${WEB_ROOT}/plugins/redmine_dashboard
-  sed -r -i -e 's|git://github.com/jgraichen/molecule.git|git+https://git@github.com/jgraichen/molecule.git|' package.json
-  bundle install
-  npm install
-  make production
-  cd "$WEB_ROOT"
-}
-
+source /docker-entrypoint-utils.sh
+set_debug
 echo "Running as `id`"
 
 case "$1" in
   rails|rake|passenger)
-    sync_redmine
-    install_dashboard
+    sync_dir /usr/src/redmine ${WEB_ROOT}
+    sync_dir /usr/local/bundle.dist /usr/local/bundle
     start_redmine
     setup_redmine
-    install_plugins
-    install_themes
     ;;
 esac
 

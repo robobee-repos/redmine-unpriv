@@ -36,9 +36,7 @@ RUN set -x \
   && chown -R ${WEB_USER}.${WEB_USER} $WEB_ROOT \
   && chown -R ${WEB_USER} /usr/local/bundle \
   && mkdir -p /etc/passenger \
-  && chown -R ${WEB_USER} /etc/passenger \
-  && mkdir -p /passenger-in \
-  && chown -R ${WEB_USER} /passenger-in
+  && chown -R ${WEB_USER} /etc/passenger
 
 # passender
 
@@ -60,22 +58,13 @@ RUN set -x \
   && /install_themes.sh
 
 RUN set -x \
-&& curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-&& apt-get install -y nodejs build-essential \
-&& rm -rf /var/lib/apt/lists/* \
-# https://github.com/jgraichen/redmine_dashboard
-&& src="https://github.com/jgraichen/redmine_dashboard/archive/a528531580b7d4c4b1dc465a8e65e9068aeb77b2.zip" \
-&& hash="0eaf381cbef92297939355f9ffa56eaac181a89083e569d4ef4e675d6474c38c" \
-&& name="redmine_dashboard" \
-&& /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
-
-RUN set -x \
-  && mkdir -p /home/redmine \
-  && chown ${WEB_USER}.${WEB_USER} -R /home/redmine
+  && mv /usr/local/bundle /usr/local/bundle.dist \
+  && mkdir -p /usr/local/bundle \
+  && chown ${WEB_USER}.${WEB_USER} /usr/local/bundle
 
 # Finishing up.
 
-VOLUME /var/www/html
+VOLUME ["/var/www/html", "/usr/local/bundle"]
 
 USER ${WEB_USER}
 

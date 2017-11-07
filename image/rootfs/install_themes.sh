@@ -1,5 +1,7 @@
 #!/bin/bash
-set -ex
+set -e
+source /docker-entrypoint-utils.sh
+set_debug
 
 # https://github.com/oklas/redmine-color-tasks
 src="https://github.com/oklas/redmine-color-tasks/archive/5106193e1f442cc4f019c61899aa212d2c5c3c32.zip"

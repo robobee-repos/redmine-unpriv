@@ -4,10 +4,10 @@ services:
 
   redmine:
     image: erwin82/redmine:latest
-    command: ["sleep", "1h"]
     ports:
       - 8080:3000
     environment:
+      DEBUG: "true"
       REDMINE_DB_MYSQL: "mariadb"
       REDMINE_DB_USERNAME: "redmine"
       REDMINE_DB_DATABASE: "redmine"
@@ -17,6 +17,7 @@ services:
       - mariadb
     volumes:
       - "./root/html:/var/www/html"
+      - "./root/bundle:/usr/local/bundle"
 
   mariadb:
     image: bitnami/mariadb:latest

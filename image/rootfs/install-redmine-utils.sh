@@ -1,5 +1,7 @@
 #!/bin/bash
-set -xe
+set -e
+source /docker-entrypoint-utils.sh
+set_debug
 
 function download_file() {
   cd /tmp

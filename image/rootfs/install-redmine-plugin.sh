@@ -1,6 +1,8 @@
 #!/bin/bash
-set -xe
+set -e
+source /docker-entrypoint-utils.sh
 source /install-redmine-utils.sh
+set_debug
 
 SRC="$1"; shift
 NAME="$1"; shift

@@ -1,5 +1,7 @@
 #!/bin/bash
-set -ex
+set -e
+source /docker-entrypoint-utils.sh
+set_debug
 
 # https://github.com/martin-denizet/redmine_custom_css
 src="https://github.com/martin-denizet/redmine_custom_css/archive/0.1.6.zip"
