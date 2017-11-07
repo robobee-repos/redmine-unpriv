@@ -4,6 +4,7 @@ services:
 
   redmine:
     image: erwin82/redmine:latest
+    command: ["sleep", "1h"]
     ports:
       - 8080:3000
     environment:

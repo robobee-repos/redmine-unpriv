@@ -215,11 +215,21 @@ function install_themes() {
   return
 }
 
+function install_dashboard() {
+  cd ${WEB_ROOT}/plugins/redmine_dashboard
+  sed -r -i -e 's|git://github.com/jgraichen/molecule.git|git+https://git@github.com/jgraichen/molecule.git|' package.json
+  bundle install
+  npm install
+  make production
+  cd "$WEB_ROOT"
+}
+
 echo "Running as `id`"
 
 case "$1" in
   rails|rake|passenger)
     sync_redmine
+    install_dashboard
     start_redmine
     setup_redmine
     install_plugins

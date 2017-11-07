@@ -22,6 +22,7 @@ RUN set -x \
     rsync \
     unzip \
     coreutils \
+    curl \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler -v 1.15.4 \
   && gem install yard \
@@ -57,6 +58,20 @@ RUN set -x \
 
 RUN set -x \
   && /install_themes.sh
+
+RUN set -x \
+&& curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+&& apt-get install -y nodejs build-essential \
+&& rm -rf /var/lib/apt/lists/* \
+# https://github.com/jgraichen/redmine_dashboard
+&& src="https://github.com/jgraichen/redmine_dashboard/archive/a528531580b7d4c4b1dc465a8e65e9068aeb77b2.zip" \
+&& hash="0eaf381cbef92297939355f9ffa56eaac181a89083e569d4ef4e675d6474c38c" \
+&& name="redmine_dashboard" \
+&& /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
+RUN set -x \
+  && mkdir -p /home/redmine \
+  && chown ${WEB_USER}.${WEB_USER} -R /home/redmine
 
 # Finishing up.
 
