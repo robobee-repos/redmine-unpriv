@@ -36,3 +36,9 @@ src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.8.zip"
 hash="17d56479df2d3242f14375dd706a97e6b3d6f838949f80a67af9e6d03b0ecf97"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
+# https://github.com/jgraichen/redmine_dashboard
+src="https://github.com/jgraichen/redmine_dashboard/releases/download/v2.7.1/redmine_dashboard-v2.7.1.tar.gz"
+hash="738a6b0da5ce3124f369043df3441fe8bdbbb32838f4714bb90e7842c7ffce78"
+name="redmine_dashboard"
+/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
