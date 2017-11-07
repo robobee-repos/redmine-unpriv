@@ -41,21 +41,16 @@ To configure the database backend see the official [Redmine image](https://hub.d
 
 ## Test
 
-The docker-compose file `test.yaml` can be used to startup MySQL and the
-Redmine base containers. Redmine can be then accessed
-from `localhost:8080`.
-
+The docker-compose file `test.yaml` can be used to startup MySQL and the Redmine base containers. Redmine can be then accessed from `localhost:8080`.
 ```
 docker-compose -f test.yaml up
 ```
 
 ## License
 
-Redmine is licensed 
-under the [GNU General Public License v2](http://www.redmine.org/) license.
+Redmine is licensed under the [GNU General Public License v2](http://www.redmine.org/) license.
 
-This Docker image is licensed 
-under the [MIT](https://opensource.org/licenses/MIT) license.
+This Docker image is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
 
 Copyright 2017 Erwin Müller
 
