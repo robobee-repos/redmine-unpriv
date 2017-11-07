@@ -30,3 +30,13 @@ cd /usr/src/redmine/public/themes
 mv dwarf/production/dwarf dwarf-theme
 rm -rf dwarf
 mv dwarf-theme dwarf
+
+# https://github.com/devent/Dwarf
+src="https://github.com/devent/Dwarf/archive/4a6654822a8d092e1c5e0a8c4154a18079248853.zip"
+hash="4b79bacb921d6907c5d7f2bcb57c8d86b0d11a267082f71fcf95f2a6163cea85"
+name="dwarf-simple"
+/install-redmine-theme.sh "$src" "$name" "$hash" downloadOnly
+cd /usr/src/redmine/public/themes
+mv dwarf-simple/production/dwarf dwarf-theme
+rm -rf dwarf-simple
+mv dwarf-theme dwarf-simple
