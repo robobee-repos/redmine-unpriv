@@ -196,6 +196,7 @@ case "$1" in
   rails|rake|passenger)
     sync_dir /usr/src/redmine ${WEB_ROOT}
     sync_dir /usr/local/bundle.dist /usr/local/bundle
+    sync_dir /redmine-in ${WEB_ROOT}/config skip
     start_redmine
     setup_redmine
     ;;

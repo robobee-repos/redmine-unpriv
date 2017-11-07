@@ -36,13 +36,25 @@ function copy_files() {
 function sync_dir() {
   dir="$1"; shift
   target="$1"; shift
+  skip=""
+  if [[ $# -gt 0 ]]; then
+    skip="$1"; shift
+  fi
   if [ ! -d "${dir}" ]; then
-    echo "${dir} does not exists or is not a directory."
-    exit 1
+    if [[ $skip != "skip" ]]; then
+      echo "${dir} does not exists or is not a directory."
+      return 1
+    else
+      return 0
+    fi
   fi
   if [ ! -d "${target}" ]; then
-    echo "${target} does not exists or is not a directory."
-    exit 1
+    if [[ $skip != "skip" ]]; then
+      echo "${target} does not exists or is not a directory."
+      return 1
+    else
+      return 0
+    fi
   fi
   cd "${target}"
   $RSYNC_CMD -rlD -u ${dir}/. .

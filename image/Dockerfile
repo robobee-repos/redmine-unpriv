@@ -26,17 +26,18 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler -v 1.15.4 \
   && gem install yard \
-  && chmod o+rwX /var/log
-
-# redmine
-
-RUN set -x \
+  && chmod o+rwX /var/log \
+  && mv /usr/local/bundle /usr/local/bundle.dist \
+  && mkdir -p /usr/local/bundle \
+  && chown ${WEB_USER}.${WEB_USER} /usr/local/bundle \
   && mkdir -p $WEB_ROOT \
   && chown -R ${WEB_USER}.${WEB_USER} $SRC_DIR \
   && chown -R ${WEB_USER}.${WEB_USER} $WEB_ROOT \
   && chown -R ${WEB_USER} /usr/local/bundle \
   && mkdir -p /etc/passenger \
-  && chown -R ${WEB_USER} /etc/passenger
+  && chown -R ${WEB_USER} /etc/passenger \
+  && mkdir -p /home/redmine \
+  && chown -R ${WEB_USER}.${WEB_USER} /home/redmine
 
 # passender
 
@@ -52,15 +53,12 @@ RUN set -x \
   && chmod +x /*.sh
 
 RUN set -x \
+  && export DEBUG=true \
   && /install_plugins.sh
 
 RUN set -x \
+  && export DEBUG=true \
   && /install_themes.sh
-
-RUN set -x \
-  && mv /usr/local/bundle /usr/local/bundle.dist \
-  && mkdir -p /usr/local/bundle \
-  && chown ${WEB_USER}.${WEB_USER} /usr/local/bundle
 
 # Finishing up.
 
