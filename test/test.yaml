@@ -9,9 +9,9 @@ services:
     environment:
       DEBUG: "true"
       REDMINE_DB_MYSQL: "mariadb"
-      REDMINE_DB_USERNAME: "redmine"
-      REDMINE_DB_DATABASE: "redmine"
-      REDMINE_DB_PASSWORD: "example"
+      REDMINE_DB_USERNAME: "anrisprojects"
+      REDMINE_DB_DATABASE: "anrisprojects"
+      REDMINE_DB_PASSWORD: "WohCh4co0waorees9nechaezuagoz4ai"
       REDMINE_PLUGINS_MIGRATE: "true"
     links:
       - mariadb
@@ -24,9 +24,9 @@ services:
     image: bitnami/mariadb:latest
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
-      MARIADB_USER: "redmine"
-      MARIADB_PASSWORD: "example"
-      MARIADB_DATABASE: "redmine"
+      MARIADB_USER: "anrisprojects"
+      MARIADB_PASSWORD: "WohCh4co0waorees9nechaezuagoz4ai"
+      MARIADB_DATABASE: "anrisprojects"
     volumes:
       - "./root/db:/bitnami/mariadb"
 
