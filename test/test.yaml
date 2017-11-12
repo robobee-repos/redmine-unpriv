@@ -5,7 +5,7 @@ services:
   redmine:
     image: erwin82/redmine:latest
     ports:
-      - 8080:3000
+      - 9090:3000
     environment:
       DEBUG: "true"
       REDMINE_DB_MYSQL: "mariadb"

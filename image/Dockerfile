@@ -23,6 +23,7 @@ RUN set -x \
     unzip \
     coreutils \
     curl \
+    ruby-dev \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler -v 1.15.4 \
   && gem install yard \
