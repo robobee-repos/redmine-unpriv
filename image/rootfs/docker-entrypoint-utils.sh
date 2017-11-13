@@ -2,7 +2,7 @@
 set -e
 
 BASH_CMD="bash"
-RSYNC_CMD="$RSYNC_CMD"
+RSYNC_CMD="rsync"
 
 function check_files_exists() {
   ls $1 1> /dev/null 2>&1
