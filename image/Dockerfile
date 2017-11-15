@@ -24,6 +24,7 @@ RUN set -x \
     coreutils \
     curl \
     ruby-dev \
+    build-essential \
   && rm -rf /var/lib/apt/lists/* \
   && gem install bundler -v 1.15.4 \
   && gem install yard \
