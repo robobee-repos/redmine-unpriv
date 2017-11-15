@@ -45,7 +45,8 @@ RUN set -x \
 
 ENV NGINX_WORKER_PROCESSES="2" \
   NGINX_WORKER_CONNECTIONS="4096" \
-  NGINX_CLIENT_MAX_BODY_SIZE="128m"
+  NGINX_CLIENT_MAX_BODY_SIZE="128m" \
+  REDMINE_SYNC_BUNDLES="true"
 
 # Install plugins and themes.
 
@@ -64,7 +65,7 @@ RUN set -x \
 
 # Finishing up.
 
-VOLUME ["/var/www/html", "/usr/local/bundle"]
+VOLUME ["/var/www/html"]
 
 USER ${WEB_USER}
 

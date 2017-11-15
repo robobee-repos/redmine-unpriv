@@ -18,6 +18,7 @@ To configure the database backend see the official [Redmine image](https://hub.d
 | NGINX_WORKER_PROCESSES | 2 | worker_processes |
 | NGINX_WORKER_CONNECTIONS | 4096 | worker_connections |
 | NGINX_CLIENT_MAX_BODY_SIZE | 128m | client_max_body_size |
+| REDMINE_SYNC_BUNDLES | `true` | If the bundles directory `/usr/local/bundle` is a persistent volume then the variable determines if the bundled `/usr/local/bundle.dist` should be syncted to the volume. Set to `false` to skip the synchronization. This can be used to bundle all required bundles in the docker image. |
 
 ## Exposed Ports
 

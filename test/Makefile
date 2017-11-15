@@ -10,8 +10,10 @@ test: setup ##@targets Starts test containers.
 stop: ##@targets Stops test containers.
 	docker-compose -p $(NAME) -f test.yaml stop
 
-clean: stop ##@targets Removes docker containers and created files.
+rm: stop ##@targets Removes docker containers and created files.
 	docker-compose -p $(NAME) -f test.yaml rm -f
+
+clean: stop rm ##@targets Removes docker containers and created files.
 	sudo rm -rf root
 
 clean-redmine: stop ##@targets Removes docker containers and created files.
