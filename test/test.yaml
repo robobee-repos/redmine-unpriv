@@ -5,28 +5,27 @@ services:
   redmine:
     image: robobeerun/redmine:latest
     ports:
-      - 9090:3000
+      - 3000:3000
     environment:
       DEBUG: "true"
       REDMINE_DB_MYSQL: "mariadb"
-      REDMINE_DB_USERNAME: "anrisprojects"
-      REDMINE_DB_DATABASE: "anrisprojects"
-      REDMINE_DB_PASSWORD: "WohCh4co0waorees9nechaezuagoz4ai"
+      REDMINE_DB_USERNAME: "redminedb"
+      REDMINE_DB_DATABASE: "redminedb"
+      REDMINE_DB_PASSWORD: "redminedb"
       REDMINE_PLUGINS_MIGRATE: "true"
     links:
       - mariadb
     volumes:
       - "./root/html:/var/www/html"
-      - "./root/bundle:/usr/local/bundle"
       - "./redmine-in:/redmine-in"
 
   mariadb:
     image: bitnami/mariadb:latest
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
-      MARIADB_USER: "anrisprojects"
-      MARIADB_PASSWORD: "WohCh4co0waorees9nechaezuagoz4ai"
-      MARIADB_DATABASE: "anrisprojects"
+      MARIADB_USER: "redminedb"
+      MARIADB_PASSWORD: "redminedb"
+      MARIADB_DATABASE: "redminedb"
     volumes:
       - "./root/db:/bitnami/mariadb"
 

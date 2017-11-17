@@ -1,4 +1,4 @@
-# Redmine
+# Redmine Passenger
 
 ## Description
 
@@ -40,6 +40,51 @@ To configure the database backend see the official [Redmine image](https://hub.d
 | /passenger-in/nginx.conf.erb | /etc/passenger/nginx.conf.erb |
 | /redmine-in/* | /var/www/html/config/ |
 
+# Redmine Puma
+
+## Description
+
+It uses the official [Redmine image](https://hub.docker.com/_/redmine/) as the base. Enhances the base in the following ways:
+
+- runs [Puma](http://puma.io/) as a non-privileged user;
+- accepts input configuration files to override the Redmine and Puma configuration, allowing for [Kubernetes config maps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#add-configmap-data-to-a-volume);
+- includes additional plugins and themes;
+
+## Environment Parameters
+
+To configure the database backend see the official [Redmine image](https://hub.docker.com/_/redmine/).
+
+| Variable | Default | Description |
+| ------------- | ------------- | ----- |
+| `DEBUG  |  | Set to `true` for additional debug output. |
+| `PUMA_MIN_THREADS` | 8 | Minimum number of threads. See the Puma [documentation](https://github.com/puma/puma/blob/master/examples/config.rb) for a detailed description. |
+| `PUMA_MAX_THREADS` | 16 | Maximum number of threads. |
+| `PUMA_CLUSTER_WORKERS` | 2 | Puma worker processes. |
+| `PUMA_WORKER_TIMEOUT` | 120 | `worker_timeout` |
+| `PUMA_WORKER_BOOT_TIMEOUT` | `worker_boot_timeout` |
+
+## Exposed Ports
+
+| Port | Description |
+| ------------- | ----- |
+| 3000  | http |
+| 9293  | Puma control app TCP socket. |
+
+## Input Configration
+
+| Source | Destination |
+| ------------- | ------------- |
+| /redmine-in/* | /var/www/html/config/ |
+
+# Redmine
+
+## Directories
+
+| Path | Description |
+| ------------- | ----- |
+| /var/www/html  | www-root directory. |
+| /usr/local/bundle | Bundles directory. |
+
 ## Plugins
 
 Not all plugins are working with a particular Redmine version. Extended testing is always required to make sure that a plugin works. Those plugins are tested with the packaged Redmine version.
@@ -76,6 +121,10 @@ docker-compose -f test.yaml up
 ## License
 
 Redmine is licensed under the [GNU General Public License v2](http://www.redmine.org/) license.
+
+Phusion Passenger is licensed under the [MIT](https://github.com/phusion/passenger/blob/stable-5.1/LICENSE) license.
+
+Puma is licensed under the [BSD-3-Clause](https://github.com/puma/puma/blob/master/LICENSE) license.
 
 This Docker image is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
 

@@ -2,6 +2,10 @@
 set -e
 source /docker-entrypoint-utils.sh
 set_debug
+UNZIP_QUIETLY="-q"
+if [[ "x$DEBUG" == "xtrue" ]]; then
+  UNZIP_QUIETLY=""
+fi
 
 function download_file() {
   cd /tmp
@@ -13,7 +17,7 @@ function unzip_strip() (
     local zip=$1
     local dest=${2:-.}
     local temp=$(mktemp -d)
-    unzip -d "$temp" "$zip"
+    unzip $UNZIP_QUIETLY -d "$temp" "$zip"
     if [[ -d "${temp}/__MACOSX" ]]; then
         rm -rf "${temp}/__MACOSX"
     fi

@@ -128,64 +128,32 @@ sed_escape_rhs() {
   echo "$@" | sed -e 's/[\/&]/\\&/g'
 }
 
-function replace_nginx() {
-  cd /etc/passenger
-  sed -i -e "s/worker_processes [[:digit:]]\+;/worker_processes ${NGINX_WORKER_PROCESSES};/" nginx.conf.erb
-  sed -i -e "s/worker_connections [[:digit:]]\+;/worker_connections ${NGINX_WORKER_CONNECTIONS};/" nginx.conf.erb
-  sed -i -e "s/client_max_body_size [[:digit:]]\+m;/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" nginx.conf.erb
-  local nginx_http_append=$(mktemp)
-  trap "{ rm -f $nginx_http_append; }" EXIT
-  cat > $nginx_http_append << "EOM"
-    sendfile on;
-    ### BEGIN your own configuration options ###
-EOM
-  sed -i -e "/    ### BEGIN your own configuration options ###/r $nginx_http_append" nginx.conf.erb
-  local nginx_server_append=$(mktemp)
-  trap "{ rm -f $nginx_server_append; }" EXIT
-  cat > $nginx_server_append << "EOM"
-        #
-        location = /favicon.ico {
-          log_not_found off;
-          access_log off;
-        }
-        #
-        location = /robots.txt {
-          allow all;
-          log_not_found off;
-          access_log off;
-        }
-        # Deny all attempts to access hidden nginx_server_appends such as .htaccess, .htpasswd, .DS_Store (Mac).
-        # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
-        location ~ /\. {
-          deny all;
-        }
-        # Deny access to any nginx_server_appends with a .rb extension in the uploads directory
-        # Works in sub-directory installs and also in multisite network
-        # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
-        location ~* /(?:uploads|nginx_server_appends)/.*\.rb$ {
-          deny all;
-        }
-        #
-        location ~* \.(js|css|png|jpg|jpeg|gif|ico|html|htm)$ {
-          expires max;
-          log_not_found off;
-        }
-        ### BEGIN your own configuration options ###
-EOM
-  sed -i -e "/        ### BEGIN your own configuration options ###/r $nginx_server_append" nginx.conf.erb
-}
-
-function setup_redmine() {
-  cd /etc/passenger
-  if [ -e /passenger-in/nginx.conf.erb ]; then
-    cp /passenger-in/nginx.conf.erb .
+function puma_config() {
+  cd "$WEB_ROOT"
+  if [[ -f config/config.rb ]]; then
+    return
   fi
-  if [ ! -e nginx.conf.erb ]; then
-    cp $(passenger-config about resourcesdir)/templates/standalone/config.erb nginx.conf.erb
-    replace_nginx
-  fi
-  echo "Used nginx.conf.erb:"
-  cat nginx.conf.erb
+  cat << EOF > config/config.rb
+#!/usr/bin/env puma
+environment 'production'
+daemonize false
+quiet
+threads ${PUMA_MIN_THREADS}, ${PUMA_MAX_THREADS}
+bind 'tcp://0.0.0.0:3000'
+workers ${PUMA_CLUSTER_WORKERS}
+preload_app!
+on_worker_boot do
+   puts 'On worker boot...'
+   ActiveSupport.on_load(:active_record) do
+    config = ActiveRecord::Base.configurations[Rails.env] || Rails.application.config.database_configuration[Rails.env]
+    config['pool'] = ENV['RAILS_MAX_THREADS'] || 5
+    ActiveRecord::Base.establish_connection(config)
+  end
+end
+worker_timeout ${PUMA_WORKER_TIMEOUT}
+worker_boot_timeout ${PUMA_WORKER_BOOT_TIMEOUT}
+activate_control_app 'tcp://0.0.0.0:9293', { no_token: true }
+EOF
 }
 
 source /docker-entrypoint-utils.sh
@@ -193,14 +161,12 @@ set_debug
 echo "Running as `id`"
 
 case "$1" in
-  rails|rake|passenger)
+  puma|rails|rake|passenger)
     sync_dir /usr/src/redmine ${WEB_ROOT}
-    if [[ "x$REDMINE_SYNC_BUNDLES" == "true" ]]; then
-      sync_dir /usr/local/bundle.dist /usr/local/bundle
-    fi
+    bundle config gemfile `realpath Gemfile`
     sync_dir /redmine-in ${WEB_ROOT}/config skip
+    puma_config
     start_redmine
-    setup_redmine
     ;;
 esac
 

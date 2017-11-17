@@ -1,6 +1,6 @@
 REPOSITORY := robobeerun
 NAME := redmine
-VERSION ?= v3.4.3-passenger-r4
+VERSION ?= v3.4.3-puma-r1
 
 build: _build ##@targets Builds the docker image.
 

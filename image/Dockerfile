@@ -1,11 +1,7 @@
-FROM redmine:3.4.3-passenger
+FROM redmine:3.4.3
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
-
-ENV WEB_ROOT="/var/www/html" \
-  WEB_USER="redmine" \
-  SRC_DIR="/usr/src/redmine"
 
 RUN set -x \
   # Optional add proxy entries for apt.
@@ -15,40 +11,46 @@ RUN set -x \
   echo Acquire::https::Proxy \"$APT_CACHE\"; >> /etc/apt/apt.conf.d/08proxy;\
   fi
 
-RUN set -x \
-  && DEBIAN_FRONTEND=noninteractive \
-  && apt-get update \
-  && apt-get install -y \
+ENV WEB_ROOT="/var/www/html" \
+  WEB_USER="redmine" \
+  SRC_DIR="/usr/src/redmine"
+
+RUN buildDeps=' \
+    gcc \
+    libmagickcore-dev \
+    libmagickwand-dev \
+    libmysqlclient-dev \
+    libpq-dev \
+    libsqlite3-dev \
+    make \
+    patch \
+  ' \
+  && set -ex \
+  && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     rsync \
     unzip \
     coreutils \
     curl \
-    ruby-dev \
-    build-essential \
   && rm -rf /var/lib/apt/lists/* \
-  && gem install bundler -v 1.15.4 \
-  && gem install yard \
-  && chmod o+rwX /var/log \
-  && mv /usr/local/bundle /usr/local/bundle.dist \
-  && mkdir -p /usr/local/bundle \
-  && chown ${WEB_USER}.${WEB_USER} /usr/local/bundle \
+  && echo 'gem "puma", "3.10.0"' >> Gemfile \
+  && for adapter in mysql2 postgresql sqlite3; do \
+    echo "$RAILS_ENV:" > ./config/database.yml; \
+    echo "  adapter: $adapter" >> ./config/database.yml; \
+    bundle install --without development test; \
+    cp Gemfile.lock "Gemfile.lock.${adapter}"; \
+  done \
+  && rm ./config/database.yml \
+  && apt-get purge -y --auto-remove $buildDeps \
+  && chown ${WEB_USER}.${WEB_USER} /usr/local/bundle
+
+RUN set -x \
   && mkdir -p $WEB_ROOT \
-  && chown -R ${WEB_USER}.${WEB_USER} $SRC_DIR \
   && chown -R ${WEB_USER}.${WEB_USER} $WEB_ROOT \
   && chown -R ${WEB_USER} /usr/local/bundle \
-  && mkdir -p /etc/passenger \
-  && chown -R ${WEB_USER} /etc/passenger \
   && mkdir -p /home/redmine \
-  && chown -R ${WEB_USER}.${WEB_USER} /home/redmine
-
-# passender
-
-ENV NGINX_WORKER_PROCESSES="2" \
-  NGINX_WORKER_CONNECTIONS="4096" \
-  NGINX_CLIENT_MAX_BODY_SIZE="128m" \
-  REDMINE_SYNC_BUNDLES="true"
-
-# Install plugins and themes.
+  && chown -R ${WEB_USER}.${WEB_USER} /home/redmine \
+  && mkdir -p /var/run/puma \
+  && chown -R ${WEB_USER}.${WEB_USER} /var/run/puma
 
 ADD rootfs/ /
 
@@ -56,14 +58,22 @@ RUN set -x \
   && chmod +x /*.sh
 
 RUN set -x \
-  && export DEBUG=true \
+  && export DEBUG=false \
   && /install_plugins.sh
 
 RUN set -x \
-  && export DEBUG=true \
+  && export DEBUG=false \
   && /install_themes.sh
 
-# Finishing up.
+ENV BUNDLE_GEMFILE=/var/www/html/Gemfile \
+  PUMA_MIN_THREADS=8 \
+  PUMA_MAX_THREADS=16 \
+  PUMA_CLUSTER_WORKERS=2 \
+  PUMA_WORKER_TIMEOUT=120 \
+  PUMA_WORKER_BOOT_TIMEOUT=120
+
+# Puma Control App TCP Socket
+EXPOSE 9293
 
 VOLUME ["/var/www/html"]
 
@@ -73,4 +83,4 @@ WORKDIR ${WEB_ROOT}
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-CMD ["passenger", "start", "--nginx-config-template", "/etc/passenger/nginx.conf.erb"]
+CMD ["puma", "-C", "./config/config.rb"]
