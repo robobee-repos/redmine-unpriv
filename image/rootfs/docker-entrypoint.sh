@@ -156,6 +156,29 @@ activate_control_app 'tcp://0.0.0.0:9293', { no_token: true }
 EOF
 }
 
+function setup_piwik() {
+  cd "$WEB_ROOT"
+  cat << EOF > config/piwik.yml
+production:
+  piwik:
+    id_site: ${PIWIK_ID_SITE}
+    url: ${PIWIK_URL}
+    use_async: ${PIWIK_USE_ASYNC}
+    disabled: ${PIWIK_DISABLED}
+
+EOF
+  tmp=$(mktemp)
+  trap "{ rm -f $tmp; }" EXIT
+  cat > $tmp << "EOM"
+
+<%= piwik_tracking_tag %>
+
+EOM
+
+  file=app/views/layouts/base.html.erb
+  sed -i -e "/<%= call_hook :view_layouts_base_body_bottom %>/r $tmp" /usr/src/redmine/$file
+}
+
 source /docker-entrypoint-utils.sh
 set_debug
 echo "Running as `id`"
@@ -166,6 +189,7 @@ case "$1" in
     bundle config gemfile `realpath Gemfile`
     sync_dir /redmine-in ${WEB_ROOT}/config skip
     puma_config
+    setup_piwik
     start_redmine
     ;;
 esac

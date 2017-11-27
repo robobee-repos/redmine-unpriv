@@ -33,6 +33,7 @@ RUN buildDeps=' \
     curl \
   && rm -rf /var/lib/apt/lists/* \
   && echo 'gem "puma", "3.10.0"' >> Gemfile \
+  && echo 'gem "piwik_analytics", "1.0.2"' >> Gemfile \
   && for adapter in mysql2 postgresql sqlite3; do \
     echo "$RAILS_ENV:" > ./config/database.yml; \
     echo "  adapter: $adapter" >> ./config/database.yml; \
@@ -70,7 +71,11 @@ ENV BUNDLE_GEMFILE=/var/www/html/Gemfile \
   PUMA_MAX_THREADS=16 \
   PUMA_CLUSTER_WORKERS=2 \
   PUMA_WORKER_TIMEOUT=120 \
-  PUMA_WORKER_BOOT_TIMEOUT=120
+  PUMA_WORKER_BOOT_TIMEOUT=120 \
+  PIWIK_ID_SITE=1 \
+  PIWIK_URL=localhost \
+  PIWIK_USE_ASYNC=false \
+  PIWIK_DISABLED=true
 
 # Puma Control App TCP Socket
 EXPOSE 9293
