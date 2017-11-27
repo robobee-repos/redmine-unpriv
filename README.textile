@@ -1,0 +1,262 @@
+<hr />
+
+Info: currently the preverred Ruby/Rack server is Puma in the @vxx-puma@ tags.
+
+<hr />
+
+h1(#redmine-puma). Redmine Puma
+
+h2(#description). Description
+
+It uses the official "Redmine image":https://hub.docker.com/_/redmine/ as the base. Enhances the base in the following ways:
+
+* runs "Puma":http://puma.io/ as a non&#45;privileged user;
+* accepts input configuration files to override the Redmine and Puma configuration, allowing for "Kubernetes config maps":https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#add-configmap-data-to-a-volume;
+* includes additional plugins and themes;
+
+h2(#environment-parameters). Environment Parameters
+
+To configure the database backend see the official "Redmine image":https://hub.docker.com/_/redmine/.
+
+<table>
+<col width="19%" />
+<col width="19%" />
+<col width="8%" />
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">@DEBUG@</td>
+<td align="left"></td>
+<td align="left">Set to @true@ for additional debug output.</td>
+</tr>
+<tr class="even">
+<td align="left">@PUMA_MIN_THREADS@</td>
+<td align="left">@8@</td>
+<td align="left">Minimum number of threads. See the Puma "documentation":https://github.com/puma/puma/blob/master/examples/config.rb for a detailed description.</td>
+</tr>
+<tr class="odd">
+<td align="left">@PUMA_MAX_THREADS@</td>
+<td align="left">@16@</td>
+<td align="left">Maximum number of threads.</td>
+</tr>
+<tr class="even">
+<td align="left">@PUMA_CLUSTER_WORKERS@</td>
+<td align="left">@2@</td>
+<td align="left">Puma worker processes.</td>
+</tr>
+<tr class="odd">
+<td align="left">@PUMA_WORKER_TIMEOUT@</td>
+<td align="left">@120@</td>
+<td align="left">@worker_timeout@</td>
+</tr>
+<tr class="even">
+<td align="left">@PUMA_WORKER_BOOT_TIMEOUT@</td>
+<td align="left">@worker_boot_timeout@</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
+h2(#exposed-ports). Exposed Ports
+
+|_. Port|_. Description|
+|3000|http|
+|9293|Puma control app TCP socket.|
+
+h2(#input-configration). Input Configration
+
+|_. Source|_. Destination|
+|/redmine&#45;in/&#42;|/var/www/html/config/|
+
+h1(#redmine-passenger). Redmine Passenger
+
+h2(#description-1). Description
+
+It uses the official "Redmine image":https://hub.docker.com/_/redmine/ as the base. Enhances the base in the following ways:
+
+* runs "Phusion Passenger":https://www.phusionpassenger.com/ as a non&#45;privileged user;
+* accepts input configuration files to override the Redmine and Passenger configuration, allowing for "Kubernetes config maps":https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#add-configmap-data-to-a-volume;
+* includes additional plugins and themes;
+
+h2(#environment-parameters-1). Environment Parameters
+
+To configure the database backend see the official "Redmine image":https://hub.docker.com/_/redmine/.
+
+<table>
+<col width="19%" />
+<col width="19%" />
+<col width="8%" />
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">@DEBUG@</td>
+<td align="left"></td>
+<td align="left">Set to @true@ for additional debug output.</td>
+</tr>
+<tr class="even">
+<td align="left">@NGINX_WORKER_PROCESSES@</td>
+<td align="left">@2@</td>
+<td align="left">worker&#95;processes</td>
+</tr>
+<tr class="odd">
+<td align="left">@NGINX_WORKER_CONNECTIONS@</td>
+<td align="left">@4096@</td>
+<td align="left">worker&#95;connections</td>
+</tr>
+<tr class="even">
+<td align="left">@NGINX_CLIENT_MAX_BODY_SIZE@</td>
+<td align="left">@128m@</td>
+<td align="left">client&#95;max&#95;body&#95;size</td>
+</tr>
+<tr class="odd">
+<td align="left">@REDMINE_SYNC_BUNDLES@</td>
+<td align="left">@true@</td>
+<td align="left">If the bundles directory @/usr/local/bundle@ is a persistent volume then the variable determines if the bundled @/usr/local/bundle.dist@ should be syncted to the volume. Set to @false@ to skip the synchronization. This can be used to bundle all required bundles in the docker image.</td>
+</tr>
+</tbody>
+</table>
+
+h2(#exposed-ports-1). Exposed Ports
+
+|_. Port|_. Description|
+|3000|http|
+
+h2(#directories). Directories
+
+|_. Path|_. Description|
+|/var/www/html|www&#45;root directory.|
+|/usr/local/bundle|Bundles directory.|
+
+h2(#input-configration-1). Input Configration
+
+|_. Source|_. Destination|
+|/passenger&#45;in/nginx.conf.erb|/etc/passenger/nginx.conf.erb|
+|/redmine&#45;in/&#42;|/var/www/html/config/|
+
+h1(#redmine). Redmine
+
+h2(#directories-1). Directories
+
+|_. Path|_. Description|
+|/var/www/html|www&#45;root directory.|
+|/usr/local/bundle|Bundles directory.|
+
+h2(#plugins). Plugins
+
+Not all plugins are working with a particular Redmine version. Extended testing is always required to make sure that a plugin works. Those plugins are tested with the packaged Redmine version.
+
+<table>
+<col width="5%" />
+<col width="5%" />
+<thead>
+<tr class="header">
+<th align="left">Plugin</th>
+<th align="left">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">"redmine&#95;custom&#95;css":https://github.com/martin-denizet/redmine_custom_css</td>
+<td align="left">https://github.com/martin&#45;denizet/redmine&#95;custom&#95;css/archive/0.1.6.zip</td>
+</tr>
+<tr class="even">
+<td align="left">"redmine&#95;theme&#95;changer":https://github.com/haru/redmine_theme_changer</td>
+<td align="left">https://github.com/haru/redmine&#95;theme&#95;changer/releases/download/0.3.1/redmine&#95;theme&#95;changer&#45;0.3.1.zip</td>
+</tr>
+<tr class="odd">
+<td align="left">"redmine&#95;lightbox2":https://github.com/paginagmbh/redmine_lightbox2</td>
+<td align="left">https://github.com/paginagmbh/redmine&#95;lightbox2/archive/v0.4.3.zip</td>
+</tr>
+<tr class="even">
+<td align="left">"clipboard&#95;image&#95;paste":https://github.com/peclik/clipboard_image_paste</td>
+<td align="left">https://github.com/peclik/clipboard&#95;image&#95;paste/archive/v1.12.zip</td>
+</tr>
+<tr class="odd">
+<td align="left">"Wiki&#95;Extensions&#95;en":https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en</td>
+<td align="left">https://www.dropbox.com/s/4ffd2o0a2sxcfrm/redmine&#95;wiki&#95;extensions&#45;0.8.0.zip</td>
+</tr>
+<tr class="even">
+<td align="left">"redmine&#95;issue&#95;templates":https://github.com/akiko-pusu/redmine_issue_templates</td>
+<td align="left">https://github.com/akiko&#45;pusu/redmine&#95;issue&#95;templates/archive/0.1.8.zip</td>
+</tr>
+<tr class="odd">
+<td align="left">"redmine&#95;dashboard":https://github.com/jgraichen/redmine_dashboard</td>
+<td align="left">https://github.com/jgraichen/redmine&#95;dashboard/releases/download/v2.7.1/redmine&#95;dashboard&#45;v2.7.1.tar.gz</td>
+</tr>
+</tbody>
+</table>
+
+h2(#themes). Themes
+
+Not all themes are working with a particular Redmine version. Extended testing is always required to make sure that a plugin works. Those themes are tested with the packaged Redmine version.
+
+<table>
+<col width="5%" />
+<col width="5%" />
+<thead>
+<tr class="header">
+<th align="left">Plugin</th>
+<th align="left">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">"redmine&#45;color&#45;tasks":https://github.com/oklas/redmine-color-tasks</td>
+<td align="left">https://github.com/oklas/redmine&#45;color&#45;tasks/archive/5106193e1f442cc4f019c61899aa212d2c5c3c32.zip</td>
+</tr>
+<tr class="even">
+<td align="left">"redmine&#45;improved&#45;theme":https://github.com/FabriceSalvaire/redmine-improved-theme</td>
+<td align="left">https://github.com/FabriceSalvaire/redmine&#45;improved&#45;theme/archive/15bc4d0bc76d89ea2f81bc49ebe5cf5fc2b2974e.zip</td>
+</tr>
+<tr class="odd">
+<td align="left">"redmine&#45;theme&#45;minimalflat2":https://github.com/akabekobeko/redmine-theme-minimalflat2</td>
+<td align="left">https://github.com/akabekobeko/redmine&#45;theme&#45;minimalflat2/releases/download/v1.3.4/minimalflat2&#45;1.3.4.zip</td>
+</tr>
+<tr class="even">
+<td align="left">"Dwarf":https://github.com/themondays/Dwarf</td>
+<td align="left">https://github.com/themondays/Dwarf/archive/bcb66f895db7baa07b16bfc65a00f0853e5e210f.zip</td>
+</tr>
+<tr class="odd">
+<td align="left">"devent&#45;Dwarf":https://github.com/devent/Dwarf</td>
+<td align="left">https://github.com/devent/Dwarf/archive/4a6654822a8d092e1c5e0a8c4154a18079248853.zip</td>
+</tr>
+</tbody>
+</table>
+
+h2(#test). Test
+
+The docker&#45;compose file @test.yaml@ can be used to startup MySQL and the Redmine base containers. Redmine can be then accessed from @localhost:8080@.
+
+bc. docker-compose -f test.yaml up
+
+
+h2(#license). License
+
+Redmine is licensed under the "GNU General Public License v2":http://www.redmine.org/ license.
+
+Phusion Passenger is licensed under the "MIT":https://github.com/phusion/passenger/blob/stable-5.1/LICENSE license.
+
+Puma is licensed under the "BSD&#45;3&#45;Clause":https://github.com/puma/puma/blob/master/LICENSE license.
+
+This Docker image is licensed under the "MIT":https://opensource.org/licenses/MIT license.
+
+Copyright 2017 Erwin Müller
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

@@ -1,3 +1,45 @@
+---
+
+Info: currently the preverred Ruby/Rack server is Puma in the `vxx-puma` tags.
+
+---
+
+# Redmine Puma
+
+## Description
+
+It uses the official [Redmine image](https://hub.docker.com/_/redmine/) as the base. Enhances the base in the following ways:
+
+- runs [Puma](http://puma.io/) as a non-privileged user;
+- accepts input configuration files to override the Redmine and Puma configuration, allowing for [Kubernetes config maps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#add-configmap-data-to-a-volume);
+- includes additional plugins and themes;
+
+## Environment Parameters
+
+To configure the database backend see the official [Redmine image](https://hub.docker.com/_/redmine/).
+
+| Variable | Default | Description |
+| ------------- | ------------- | ----- |
+| `DEBUG`  |  | Set to `true` for additional debug output. |
+| `PUMA_MIN_THREADS` | `8` | Minimum number of threads. See the Puma [documentation](https://github.com/puma/puma/blob/master/examples/config.rb) for a detailed description. |
+| `PUMA_MAX_THREADS` | `16` | Maximum number of threads. |
+| `PUMA_CLUSTER_WORKERS` | `2` | Puma worker processes. |
+| `PUMA_WORKER_TIMEOUT` | `120` | `worker_timeout` |
+| `PUMA_WORKER_BOOT_TIMEOUT` | `worker_boot_timeout` |
+
+## Exposed Ports
+
+| Port | Description |
+| ------------- | ----- |
+| 3000  | http |
+| 9293  | Puma control app TCP socket. |
+
+## Input Configration
+
+| Source | Destination |
+| ------------- | ------------- |
+| /redmine-in/* | /var/www/html/config/ |
+
 # Redmine Passenger
 
 ## Description
@@ -14,11 +56,11 @@ To configure the database backend see the official [Redmine image](https://hub.d
 
 | Variable | Default | Description |
 | ------------- | ------------- | ----- |
-| DEBUG  |  | Set to `true` for additional debug output. |
-| NGINX_WORKER_PROCESSES | 2 | worker_processes |
-| NGINX_WORKER_CONNECTIONS | 4096 | worker_connections |
-| NGINX_CLIENT_MAX_BODY_SIZE | 128m | client_max_body_size |
-| REDMINE_SYNC_BUNDLES | `true` | If the bundles directory `/usr/local/bundle` is a persistent volume then the variable determines if the bundled `/usr/local/bundle.dist` should be syncted to the volume. Set to `false` to skip the synchronization. This can be used to bundle all required bundles in the docker image. |
+| `DEBUG`  |  | Set to `true` for additional debug output. |
+| `NGINX_WORKER_PROCESSES` | `2` | worker_processes |
+| `NGINX_WORKER_CONNECTIONS` | `4096` | worker_connections |
+| `NGINX_CLIENT_MAX_BODY_SIZE` | `128m` | client_max_body_size |
+|` REDMINE_SYNC_BUNDLES` | `true` | If the bundles directory `/usr/local/bundle` is a persistent volume then the variable determines if the bundled `/usr/local/bundle.dist` should be syncted to the volume. Set to `false` to skip the synchronization. This can be used to bundle all required bundles in the docker image. |
 
 ## Exposed Ports
 
@@ -38,42 +80,6 @@ To configure the database backend see the official [Redmine image](https://hub.d
 | Source | Destination |
 | ------------- | ------------- |
 | /passenger-in/nginx.conf.erb | /etc/passenger/nginx.conf.erb |
-| /redmine-in/* | /var/www/html/config/ |
-
-# Redmine Puma
-
-## Description
-
-It uses the official [Redmine image](https://hub.docker.com/_/redmine/) as the base. Enhances the base in the following ways:
-
-- runs [Puma](http://puma.io/) as a non-privileged user;
-- accepts input configuration files to override the Redmine and Puma configuration, allowing for [Kubernetes config maps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#add-configmap-data-to-a-volume);
-- includes additional plugins and themes;
-
-## Environment Parameters
-
-To configure the database backend see the official [Redmine image](https://hub.docker.com/_/redmine/).
-
-| Variable | Default | Description |
-| ------------- | ------------- | ----- |
-| `DEBUG  |  | Set to `true` for additional debug output. |
-| `PUMA_MIN_THREADS` | 8 | Minimum number of threads. See the Puma [documentation](https://github.com/puma/puma/blob/master/examples/config.rb) for a detailed description. |
-| `PUMA_MAX_THREADS` | 16 | Maximum number of threads. |
-| `PUMA_CLUSTER_WORKERS` | 2 | Puma worker processes. |
-| `PUMA_WORKER_TIMEOUT` | 120 | `worker_timeout` |
-| `PUMA_WORKER_BOOT_TIMEOUT` | `worker_boot_timeout` |
-
-## Exposed Ports
-
-| Port | Description |
-| ------------- | ----- |
-| 3000  | http |
-| 9293  | Puma control app TCP socket. |
-
-## Input Configration
-
-| Source | Destination |
-| ------------- | ------------- |
 | /redmine-in/* | /var/www/html/config/ |
 
 # Redmine
