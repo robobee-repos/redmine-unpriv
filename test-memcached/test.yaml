@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  redmine:
+    image: robobeerun/redmine:latest
+    ports:
+      - 3000:3000
+    environment:
+      DEBUG: "true"
+      REDMINE_PLUGINS_MIGRATE: "true"
+      MEMCACHE_HOST: "memcached"
+      MEMCACHE_PORT: "11211"
+    links:
+      - memcached
+    volumes:
+      - "./root/html:/var/www/html"
+      - "./redmine-in:/redmine-in"
+
+  memcached:
+    image: memcached:1.5.3-alpine

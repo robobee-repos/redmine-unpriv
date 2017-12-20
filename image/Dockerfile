@@ -35,6 +35,7 @@ RUN buildDeps=' \
   && echo 'gem "puma", "3.10.0"' >> Gemfile \
   && echo 'gem "piwik_analytics", "1.0.2"' >> Gemfile \
   && echo 'gem "temple", "0.8.0"' >> Gemfile \
+  && echo 'gem "dalli", "~> 2.7.0"' >> Gemfile \
   && for adapter in mysql2 postgresql sqlite3; do \
     echo "$RAILS_ENV:" > ./config/database.yml; \
     echo "  adapter: $adapter" >> ./config/database.yml; \

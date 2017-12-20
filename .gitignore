@@ -1,4 +1,4 @@
 log.txt
-test/root/**
-test/tmp/**
+root
+tmp
 README.textile
