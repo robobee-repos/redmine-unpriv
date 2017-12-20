@@ -115,7 +115,8 @@ YML
   chmod -R 755 files log tmp public/plugin_assets
       
   if [ "$1" != 'rake' -a -n "$REDMINE_PLUGINS_MIGRATE" ]; then
-  rake redmine:plugins:migrate
+    rake redmine:plugins:migrate
+    rails g piwik_analytics:install -s
   fi
 }
 

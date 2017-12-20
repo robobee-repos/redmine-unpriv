@@ -26,7 +26,7 @@ RUN buildDeps=' \
     patch \
   ' \
   && set -ex \
-  && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+  && apt-get update && apt-get install -y --no-install-recommends $buildDeps \
     rsync \
     unzip \
     coreutils \
@@ -34,6 +34,7 @@ RUN buildDeps=' \
   && rm -rf /var/lib/apt/lists/* \
   && echo 'gem "puma", "3.10.0"' >> Gemfile \
   && echo 'gem "piwik_analytics", "1.0.2"' >> Gemfile \
+  && echo 'gem "temple", "0.8.0"' >> Gemfile \
   && for adapter in mysql2 postgresql sqlite3; do \
     echo "$RAILS_ENV:" > ./config/database.yml; \
     echo "  adapter: $adapter" >> ./config/database.yml; \
