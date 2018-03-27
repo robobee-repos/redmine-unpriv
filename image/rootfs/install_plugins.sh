@@ -4,8 +4,8 @@ source /docker-entrypoint-utils.sh
 set_debug
 
 # https://github.com/martin-denizet/redmine_custom_css
-src="https://github.com/martin-denizet/redmine_custom_css/archive/0.1.6.zip"
-hash="48031a1975aca11fede5d17691d299764661bbd5f29a3a6d77a61737d96d1814"
+src="https://github.com/martin-denizet/redmine_custom_css/archive/0.1.7.zip"
+hash="4cf7aeee98fe9c74bd3e5f32149d96af8e7c081748acc818254a63be81dfd633"
 name="redmine_custom_css"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
