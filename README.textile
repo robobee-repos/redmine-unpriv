@@ -92,7 +92,7 @@ Puma is licensed under the "BSD-3-Clause":https://github.com/puma/puma/blob/mast
 
 This Docker image is licensed under the "MIT":https://opensource.org/licenses/MIT license.
 
-Copyright 2017 Erwin Müller
+Copyright 2017-2018 Erwin Müller
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
