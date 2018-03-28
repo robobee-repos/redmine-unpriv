@@ -44,3 +44,9 @@ src="https://github.com/jgraichen/redmine_dashboard/releases/download/v2.7.1/red
 hash="738a6b0da5ce3124f369043df3441fe8bdbbb32838f4714bb90e7842c7ffce78"
 name="redmine_dashboard"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
+# https://github.com/ixti/redmine_tags
+src="https://github.com/ixti/redmine_tags/archive/3.2.2.zip"
+hash="516849e3e26556074a0f67c6439e17ad06b91c45e217464ccba4fc7be91da46c"
+name="redmine_tags"
+/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
