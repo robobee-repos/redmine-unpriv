@@ -52,15 +52,16 @@ To configure the database backend see the official [Redmine image](https://hub.d
 
 Not all plugins are working with a particular Redmine version. Extended testing is always required to make sure that a plugin works. Those plugins are tested with the packaged Redmine version.
 
-| Plugin | URL |
+| Plugin | Version |
 | --- | --- |
-| [redmine_custom_css](https://github.com/martin-denizet/redmine_custom_css) | https://github.com/martin-denizet/redmine_custom_css/archive/0.1.6.zip |
-| [redmine_theme_changer](https://github.com/haru/redmine_theme_changer) | https://github.com/haru/redmine_theme_changer/releases/download/0.3.1/redmine_theme_changer-0.3.1.zip |
-| [redmine_lightbox2](https://github.com/paginagmbh/redmine_lightbox2) | https://github.com/paginagmbh/redmine_lightbox2/archive/v0.4.3.zip |
-| [clipboard_image_paste](https://github.com/peclik/clipboard_image_paste) | https://github.com/peclik/clipboard_image_paste/archive/v1.12.zip |
-| [Wiki_Extensions_en](https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en) | https://www.dropbox.com/s/4ffd2o0a2sxcfrm/redmine_wiki_extensions-0.8.0.zip |
-| [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.8.zip |
-| [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | https://github.com/jgraichen/redmine_dashboard/releases/download/v2.7.1/redmine_dashboard-v2.7.1.tar.gz |
+| [redmine_custom_css](https://github.com/martin-denizet/redmine_custom_css) | 0.1.7 |
+| [redmine_theme_changer](https://github.com/haru/redmine_theme_changer) | 0.3.1 |
+| [redmine_lightbox2](https://github.com/paginagmbh/redmine_lightbox2) | 0.4.3 |
+| [clipboard_image_paste](https://github.com/peclik/clipboard_image_paste) | 1.12 |
+| [Wiki_Extensions_en](https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en) | 0.8.0 |
+| [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.1.8 |
+| [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | 2.7.1 |
+| [redmine_tags](https://github.com/ixti/redmine_tags) | 3.2.2 |
 
 ## Themes
 
@@ -68,11 +69,11 @@ Not all themes are working with a particular Redmine version. Extended testing i
 
 | Plugin | URL |
 | --- | --- |
-| [redmine-color-tasks](https://github.com/oklas/redmine-color-tasks) | https://github.com/oklas/redmine-color-tasks/archive/5106193e1f442cc4f019c61899aa212d2c5c3c32.zip |
-| [redmine-improved-theme](https://github.com/FabriceSalvaire/redmine-improved-theme) | https://github.com/FabriceSalvaire/redmine-improved-theme/archive/15bc4d0bc76d89ea2f81bc49ebe5cf5fc2b2974e.zip |
-| [redmine-theme-minimalflat2](https://github.com/akabekobeko/redmine-theme-minimalflat2) | https://github.com/akabekobeko/redmine-theme-minimalflat2/releases/download/v1.3.4/minimalflat2-1.3.4.zip |
-| [Dwarf](https://github.com/themondays/Dwarf) | https://github.com/themondays/Dwarf/archive/bcb66f895db7baa07b16bfc65a00f0853e5e210f.zip |
-| [devent-Dwarf](https://github.com/devent/Dwarf) | https://github.com/devent/Dwarf/archive/4a6654822a8d092e1c5e0a8c4154a18079248853.zip |
+| [redmine-color-tasks](https://github.com/oklas/redmine-color-tasks) |  03/02/2017 |
+| [redmine-improved-theme](https://github.com/FabriceSalvaire/redmine-improved-theme) | 25/06/2017  |
+| [redmine-theme-minimalflat2](https://github.com/akabekobeko/redmine-theme-minimalflat2) | 1.3.6 |
+| [Dwarf](https://github.com/themondays/Dwarf) |  02/10/2016 |
+| [devent-Dwarf](https://github.com/devent/Dwarf) | 07/11/2017  |
 
 ## Test
 
