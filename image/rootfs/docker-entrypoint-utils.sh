@@ -57,7 +57,7 @@ function sync_dir() {
     fi
   fi
   cd "${target}"
-  $RSYNC_CMD -rlD -u ${dir}/. .
+  $RSYNC_CMD -rlD ${dir}/. .
 }
 
 function do_sed() {
