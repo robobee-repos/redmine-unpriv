@@ -29,6 +29,7 @@ function start_redmine() {
   if [ ! -f './config/database.yml' ]; then
     file_env 'REDMINE_DB_MYSQL'
     file_env 'REDMINE_DB_POSTGRES'
+    file_env 'REDMINE_DB_SQLSERVER'
     
     if [ "$MYSQL_PORT_3306_TCP" ] && [ -z "$REDMINE_DB_MYSQL" ]; then
       export REDMINE_DB_MYSQL='mysql'
@@ -52,9 +53,17 @@ function start_redmine() {
       file_env 'REDMINE_DB_PASSWORD' "${POSTGRES_ENV_POSTGRES_PASSWORD}"
       file_env 'REDMINE_DB_DATABASE' "${POSTGRES_ENV_POSTGRES_DB:-${REDMINE_DB_USERNAME:-}}"
       file_env 'REDMINE_DB_ENCODING' 'utf8'
+    elif [ "$REDMINE_DB_SQLSERVER" ]; then
+      adapter='sqlserver'
+      host="$REDMINE_DB_SQLSERVER"
+      file_env 'REDMINE_DB_PORT' '1433'
+      file_env 'REDMINE_DB_USERNAME' ''
+      file_env 'REDMINE_DB_PASSWORD' ''
+      file_env 'REDMINE_DB_DATABASE' ''
+      file_env 'REDMINE_DB_ENCODING' ''
     else
       echo >&2
-      echo >&2 'warning: missing REDMINE_DB_MYSQL or REDMINE_DB_POSTGRES environment variables'
+      echo >&2 'warning: missing REDMINE_DB_MYSQL, REDMINE_DB_POSTGRES, or REDMINE_DB_SQLSERVER environment variables'
       echo >&2
       echo >&2 '*** Using sqlite3 as fallback. ***'
       echo >&2
@@ -88,10 +97,22 @@ function start_redmine() {
       [ -n "$val" ] || continue
       echo "  $var: \"$val\"" >> config/database.yml
     done
+    else
+      # parse the database config to get the database adapter name
+      # so we can use the right Gemfile.lock
+      adapter="$(
+        ruby -e "
+          require 'yaml'
+          conf = YAML.load_file('./config/database.yml')
+          puts conf['$RAILS_ENV']['adapter']
+        "
+      )"
   fi
   
   # ensure the right database adapter is active in the Gemfile.lock
-  bundle install --without development test
+  cp "Gemfile.lock.${adapter}" Gemfile.lock
+  # install additional gems for Gemfile.local and plugins
+  bundle check || bundle install --without development test
   
   if [ ! -s config/secrets.yml ]; then
     file_env 'REDMINE_SECRET_KEY_BASE'
@@ -106,27 +127,21 @@ YML
   fi
   if [ "$1" != 'rake' -a -z "$REDMINE_NO_DB_MIGRATE" ]; then
     rake db:migrate
-      fi
+  fi
   
-  # remove PID file to enable restarting the container
-  rm -f tmp/pids/server.pid
   # https://www.redmine.org/projects/redmine/wiki/RedmineInstall#Step-8-File-system-permissions
   chown -R redmine:redmine files log public/plugin_assets
-  chmod -R 755 files log tmp public/plugin_assets
-      
+  # directories 755, files 644:
+  chmod -R ugo-x,u+rwX,go+rX,go-w files log tmp public/plugin_assets
+    
   if [ "$1" != 'rake' -a -n "$REDMINE_PLUGINS_MIGRATE" ]; then
     rake redmine:plugins:migrate
     rails g piwik_analytics:install -s
   fi
-}
-
-# see http://stackoverflow.com/a/2705678/433558
-sed_escape_lhs() {
-  echo "$@" | sed -e 's/[]\/$*.^|[]/\\&/g'
-}
-
-sed_escape_rhs() {
-  echo "$@" | sed -e 's/[\/&]/\\&/g'
+    
+  # remove PID file to enable restarting the container
+  rm -f /usr/src/redmine/tmp/pids/server.pid
+    
 }
 
 function puma_config() {
