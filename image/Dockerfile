@@ -25,6 +25,10 @@ RUN set -eux; \
     coreutils \
     curl \
   ; \
+  apt-get install -y --no-install-recommends \
+    mariadb-client \
+    postgresql \
+  ; \
   savedAptMark="$(apt-mark showmanual)"; \
   apt-get update; \
   apt-get install -y --no-install-recommends \
