@@ -29,8 +29,8 @@ To configure the database backend see the official [Redmine image](https://hub.d
 | `PUMA_MIN_THREADS` | `8` | Minimum number of threads. See the Puma [documentation](https://github.com/puma/puma/blob/master/examples/config.rb) for a detailed description. |
 | `PUMA_MAX_THREADS` | `16` | Maximum number of threads. |
 | `PUMA_CLUSTER_WORKERS` | `2` | Puma worker processes. |
-| `PUMA_WORKER_TIMEOUT` | `120` | `worker_timeout` | |
-| `PUMA_WORKER_BOOT_TIMEOUT` | `worker_boot_timeout` | |
+| `PUMA_WORKER_TIMEOUT` | `120` | `worker_timeout` |
+| `PUMA_WORKER_BOOT_TIMEOUT` | `120` | `worker_boot_timeout` |
 | `PIWIK_ID_SITE` | `1` | |
 | `PIWIK_URL` | `localhost`  | |
 | `PIWIK_USE_ASYNC` | `false` | |
