@@ -111,7 +111,10 @@ RUN set -x \
   && export DEBUG=false \
   && /install_themes.sh
 
-ENV BUNDLE_GEMFILE=/var/www/html/Gemfile \
+ENV DEBUG="false" \
+  SYNC_ENABLED="true" \
+  SYNC_TIME_S="300" \
+  BUNDLE_GEMFILE=/var/www/html/Gemfile \
   PUMA_MIN_THREADS=8 \
   PUMA_MAX_THREADS=16 \
   PUMA_CLUSTER_WORKERS=2 \

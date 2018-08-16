@@ -8,7 +8,10 @@ echo "Running as `id`"
 
 case "$1" in
   puma|rails|rake|passenger)
-    sync_dir /usr/src/redmine ${WEB_ROOT}
+    if is_sync_enabled && check_update_time ${WEB_ROOT}; then
+      sync_dir /usr/src/redmine ${WEB_ROOT}
+      update_update_time ${WEB_ROOT}
+    fi
     bundle config gemfile `realpath Gemfile`
     sync_dir /redmine-in ${WEB_ROOT}/config skip
     puma_config

@@ -9,12 +9,22 @@ It uses the official [Redmine image](https://hub.docker.com/_/redmine/) as the b
 - includes additional plugins and themes;
 - includes [piwik_analytics](https://github.com/berkes/piwik_analytics);
 
+## Updating
+
+The files in `WEB_ROOT` are updated with `rsync` from the docker image.
+To avoid endless a loop of a restarting container a timeout for updating
+can be set in the variables `UPDATE_TIME_S`. No `rsync` will be called if
+the restart time was less than this timeout. While `rsync` should not write
+files that do not need to be updated, `rsync` is still making read requests.
+
 ## Environment Parameters
 
 To configure the database backend see the official [Redmine image](https://hub.docker.com/_/redmine/).
 
 | Variable | Default | Description |
 | ------------- | ------------- | ----- |
+| `SYNC_ENABLED`  | `true` | Set to `false` to deactivate the application will be done. |
+| `SYNC_TIME_S`  | `300` | Set to the seconds that will be waited before a full update of the application will be done. |
 | `DEBUG`  |  | Set to `true` for additional debug output. |
 | `PUMA_MIN_THREADS` | `8` | Minimum number of threads. See the Puma [documentation](https://github.com/puma/puma/blob/master/examples/config.rb) for a detailed description. |
 | `PUMA_MAX_THREADS` | `16` | Maximum number of threads. |
@@ -59,7 +69,7 @@ Not all plugins are working with a particular Redmine version. Extended testing 
 | [redmine_lightbox2](https://github.com/paginagmbh/redmine_lightbox2) | 0.4.3 |
 | [clipboard_image_paste](https://github.com/peclik/clipboard_image_paste) | 1.12 |
 | [Wiki_Extensions_en](https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en) | 0.8.0 |
-| [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.1.8 |
+| [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.2.0 |
 | [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | 2.7.1 |
 | [redmine_tags](https://github.com/ixti/redmine_tags) | 3.2.2 |
 
