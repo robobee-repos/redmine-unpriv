@@ -34,8 +34,8 @@ name="redmine_wiki_extensions"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/akiko-pusu/redmine_issue_templates
-src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.1.8.zip"
-hash="17d56479df2d3242f14375dd706a97e6b3d6f838949f80a67af9e6d03b0ecf97"
+src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.2.0.zip"
+hash="5ed7c8f525cb39a1efac0584416b1ae216b0f0977cc68c9d8014ce3c7db907db"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
