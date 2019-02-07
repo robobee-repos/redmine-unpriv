@@ -16,8 +16,8 @@ name="improved-theme"
 /install-redmine-theme.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/akabekobeko/redmine-theme-minimalflat2
-src="https://github.com/akabekobeko/redmine-theme-minimalflat2/releases/download/v1.4.0/minimalflat2-1.4.0.zip"
-hash="4563cfe7796a5c7657293066128570348814fda09408a3c2278aa140e3745b14"
+src="https://github.com/akabekobeko/redmine-theme-minimalflat2/releases/download/v1.4.2/minimalflat2-1.4.2.zip"
+hash="0c6026eb270b7856a37ba8f3f875a5365f0b9bb5be27ccb619a2179869ae30b1"
 name="minimalflat2"
 /install-redmine-theme.sh "$src" "$name" "$hash" downloadOnly
 
