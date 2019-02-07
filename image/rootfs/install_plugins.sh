@@ -16,14 +16,14 @@ name="redmine_theme_changer"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/paginagmbh/redmine_lightbox2
-src="https://github.com/paginagmbh/redmine_lightbox2/archive/v0.4.3.zip"
-hash="108540476aa71904f96ba5abfa65c7b48c33c19b7226fface0b84d91ae2a8dba"
+src="https://github.com/paginagmbh/redmine_lightbox2/archive/v0.4.4.zip"
+hash="b005617a876f64f8b56139649e86d1e344a7b646194f624b8c0752b9367beebd"
 name="redmine_lightbox2"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/peclik/clipboard_image_paste
-src="https://github.com/peclik/clipboard_image_paste/archive/v1.12.zip"
-hash="372cee648645a408616e395ef0dc40be43e0cd5d0786983bfca2be9a0ec7a611"
+src="https://github.com/peclik/clipboard_image_paste/archive/v1.13.zip"
+hash="76b6e2c2b77edfb6182ab1829e8c22b302983a7ecae45e37186196f39924c57e"
 name="clipboard_image_paste"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
@@ -34,8 +34,8 @@ name="redmine_wiki_extensions"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/akiko-pusu/redmine_issue_templates
-src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.2.0.zip"
-hash="5ed7c8f525cb39a1efac0584416b1ae216b0f0977cc68c9d8014ce3c7db907db"
+src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.2.1.zip"
+hash="cc1a820d7ed07f3a11d7cdf258a07fb38ae4b02570780823e45b156fbfad0118"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 

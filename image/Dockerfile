@@ -1,4 +1,4 @@
-FROM redmine:3.4.6
+FROM redmine:3.4.8
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
@@ -18,8 +18,10 @@ ENV WEB_ROOT="/var/www/html" \
 # Need to install additional gems and packages
 
 RUN set -eux; \
-  apt-get update; \
-  apt-get install -y \
+  apt-get update \
+  && mkdir -p /usr/share/man/man1 \
+  && mkdir -p /usr/share/man/man7 \
+  && apt-get install -y \
     rsync \
     unzip \
     coreutils \
@@ -27,7 +29,7 @@ RUN set -eux; \
   ; \
   apt-get install -y --no-install-recommends \
     mariadb-client \
-    postgresql \
+    postgresql-client \
   ; \
   savedAptMark="$(apt-mark showmanual)"; \
   apt-get update; \
@@ -48,10 +50,10 @@ RUN set -eux; \
   ; \
   rm -rf /var/lib/apt/lists/*; \
   \
-  echo 'gem "puma", "3.12.0"' >> Gemfile; \
+  echo 'gem "puma", "3.4.0"' >> Gemfile; \
   echo 'gem "piwik_analytics", "~> 1.0.2"' >> Gemfile; \
   echo 'gem "temple", "~> 0.8.0"' >> Gemfile; \
-  echo 'gem "dalli", "~> 2.7.8"' >> Gemfile; \
+  echo 'gem "dalli", "~> 2.7.9"' >> Gemfile; \
 # https://github.com/travis-ci/travis-ci/issues/9391 (can't let "tiny_tds" download FreeTDS for us because FTP)
 # https://github.com/rails-sqlserver/tiny_tds/pull/384 (newer version uses HTTP!)
 # https://github.com/rails-sqlserver/tiny_tds/pull/345 (... but then can't download it for us)
@@ -64,16 +66,19 @@ RUN set -eux; \
   rm freetds.tar.bz2; \
   ( cd freetds && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" && ./configure --build="$gnuArch" --enable-silent-rules && make -j "$(nproc)" && make -C src install && make -C include install ); \
   rm -rf freetds; \
-  bundle config build.tiny_tds --enable-system-freetds; \
+  gosu redmine bundle config build.tiny_tds --enable-system-freetds; \
   \
-  bundle install --without development test; \
+  gosu redmine bundle install --without development test; \
   for adapter in mysql2 postgresql sqlserver sqlite3; do \
     echo "$RAILS_ENV:" > ./config/database.yml; \
     echo "  adapter: $adapter" >> ./config/database.yml; \
-    bundle install --without development test; \
+    gosu redmine bundle install --without development test; \
     cp Gemfile.lock "Gemfile.lock.${adapter}"; \
   done; \
   rm ./config/database.yml; \
+# fix permissions for running as an arbitrary user
+  chmod -R ugo=rwX Gemfile.lock "$GEM_HOME"; \
+  rm -rf ~redmine/.bundle; \
   \
 # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
   apt-mark auto '.*' > /dev/null; \
@@ -87,7 +92,7 @@ RUN set -eux; \
     | sort -u \
     | xargs -r apt-mark manual \
   ; \
-  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
+apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
 
 RUN set -x \
   && mkdir -p $WEB_ROOT \
