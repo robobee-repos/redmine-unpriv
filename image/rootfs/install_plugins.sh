@@ -10,43 +10,40 @@ name="redmine_custom_css"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/haru/redmine_theme_changer
-src="https://github.com/haru/redmine_theme_changer/releases/download/0.3.1/redmine_theme_changer-0.3.1.zip"
-hash="3ceedaafae55a575d415c009283f44b89e0160378962ed64b20e4c622ca3f61c"
+src="https://github.com/haru/redmine_theme_changer/releases/download/0.4.0/redmine_theme_changer-0.4.0.zip"
+hash="74aa6551d399fd8800e034ad79b624631c684a29939e9100b63fc2bf795adb36"
 name="redmine_theme_changer"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/paginagmbh/redmine_lightbox2
-src="https://github.com/paginagmbh/redmine_lightbox2/archive/v0.4.4.zip"
-hash="b005617a876f64f8b56139649e86d1e344a7b646194f624b8c0752b9367beebd"
+src="https://github.com/paginagmbh/redmine_lightbox2/archive/v0.5.0.zip"
+hash="367d78c34cb9d249c56a90adb808df0ae0ca22cd5edeae3814aec07332cc7f5e"
 name="redmine_lightbox2"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/peclik/clipboard_image_paste
-src="https://github.com/peclik/clipboard_image_paste/archive/v1.13.zip"
-hash="76b6e2c2b77edfb6182ab1829e8c22b302983a7ecae45e37186196f39924c57e"
+# Fork https://github.com/Utopism/clipboard_image_paste
+# Commit from Nov 20, 2018
+src="https://github.com/Utopism/clipboard_image_paste/archive/1031117e0cf60d08f8f50e6c215fcd8abe1829c5.zip"
+hash="946d67172f1d3f83f2266d28e2ac1eec21c108273bf13b6e9edd090d9a01a589"
 name="clipboard_image_paste"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-# https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en
-src="https://www.dropbox.com/s/4ffd2o0a2sxcfrm/redmine_wiki_extensions-0.8.0.zip?dl=0"
-hash="978cd0f28a7063f01c0e997972987e841dc6e1be107accac14ec7298c13f87d8"
-name="redmine_wiki_extensions"
-/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
-
 # https://github.com/akiko-pusu/redmine_issue_templates
-src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.2.1.zip"
-hash="cc1a820d7ed07f3a11d7cdf258a07fb38ae4b02570780823e45b156fbfad0118"
+src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.3.0.zip"
+hash="3277b3fa93a144bd79456f29241b5f0ff4f763fb9a18af33fe6662fe1cab1461"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/jgraichen/redmine_dashboard
-src="https://github.com/jgraichen/redmine_dashboard/releases/download/v2.7.1/redmine_dashboard-v2.7.1.tar.gz"
-hash="738a6b0da5ce3124f369043df3441fe8bdbbb32838f4714bb90e7842c7ffce78"
+# Commit from Jan 20, 2019
+src="https://github.com/jgraichen/redmine_dashboard/archive/7631921e18079ed3757d730c0c073e837a2d2ca6.zip"
+hash="ed714b247a77a74ed006a55f3383240025b7b48599fc572c5e0207b0eef84832"
 name="redmine_dashboard"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/ixti/redmine_tags
-src="https://github.com/ixti/redmine_tags/archive/3.2.2.zip"
-hash="516849e3e26556074a0f67c6439e17ad06b91c45e217464ccba4fc7be91da46c"
+src="https://github.com/ixti/redmine_tags/archive/4.0.0.zip"
+hash="b43be4cd1f5a084485edc86ee8293d852d93fd5a50501678dd516d0fbb6889d1"
 name="redmine_tags"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
