@@ -29,6 +29,13 @@ hash="946d67172f1d3f83f2266d28e2ac1eec21c108273bf13b6e9edd090d9a01a589"
 name="clipboard_image_paste"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
+# https://github.com/Utopism/redmine-graphs-plugin
+# Commit from  19 Nov 2018
+src="https://github.com/Utopism/redmine-graphs-plugin/archive/51e3fe2944ed3543efa3f3b9bbc4e28d8d418048.zip"
+hash="c1a1992dd15b7587330adcfe1d43ee2e239a87665a8989e0f4e38078b115db33"
+name="redmine_graphs"
+/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
 # https://github.com/akiko-pusu/redmine_issue_templates
 src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.3.0.zip"
 hash="3277b3fa93a144bd79456f29241b5f0ff4f763fb9a18af33fe6662fe1cab1461"
