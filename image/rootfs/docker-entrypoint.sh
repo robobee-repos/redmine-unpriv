@@ -16,7 +16,7 @@ case "$1" in
     sync_dir /redmine-in ${WEB_ROOT}/config skip
     puma_config
     setup_piwik
-    start_redmine
+    start_redmine $1
     ;;
 esac
 

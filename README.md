@@ -65,13 +65,13 @@ Not all plugins are working with a particular Redmine version. Extended testing 
 | Plugin | Version |
 | --- | --- |
 | [redmine_custom_css](https://github.com/martin-denizet/redmine_custom_css) | 0.1.7 |
-| [redmine_theme_changer](https://github.com/haru/redmine_theme_changer) | 0.3.1 |
-| [redmine_lightbox2](https://github.com/paginagmbh/redmine_lightbox2) | 0.4.3 |
-| [clipboard_image_paste](https://github.com/peclik/clipboard_image_paste) | 1.12 |
-| [Wiki_Extensions_en](https://www.r-labs.org/projects/r-labs/wiki/Wiki_Extensions_en) | 0.8.0 |
-| [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.2.0 |
-| [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | 2.7.1 |
-| [redmine_tags](https://github.com/ixti/redmine_tags) | 3.2.2 |
+| [redmine_theme_changer](https://github.com/haru/redmine_theme_changer) | 0.4.0 |
+| [redmine_lightbox2](https://github.com/paginagmbh/redmine_lightbox2) | 0.5.0 |
+| [clipboard_image_paste](https://github.com/Utopism/clipboard_image_paste) | Commit Nov 20, 2018 |
+| [redmine_graphs](https://github.com/Utopism/redmine-graphs-plugin) | Commit Nov 19, 2018 |
+| [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.3.0 |
+| [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | Commit from Jan 20, 2019 |
+| [redmine_tags](https://github.com/ixti/redmine_tags) | 4.0.0 |
 
 ## Themes
 
@@ -102,7 +102,7 @@ Puma is licensed under the [BSD-3-Clause](https://github.com/puma/puma/blob/mast
 
 This Docker image is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
 
-Copyright 2017-2018 Erwin Müller
+Copyright 2017-2019 Erwin Müller
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

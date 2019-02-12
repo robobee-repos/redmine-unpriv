@@ -22,9 +22,9 @@ clean-redmine: stop ##@targets Removes docker containers and created files.
 
 setup:
 	mkdir -p root/html
-	chmod o+rwX root/html
+	sudo chmod o+rwX root/html
 	mkdir -p root/bundle
-	chmod o+rwX root/bundle
+	sudo chmod o+rwX root/bundle
 	mkdir -p root/db
-	chmod o+rwX root/db
+	sudo chmod o+rwX root/db
 .PHONY: setup
