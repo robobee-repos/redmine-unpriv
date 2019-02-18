@@ -54,3 +54,17 @@ src="https://github.com/ixti/redmine_tags/archive/4.0.0.zip"
 hash="b43be4cd1f5a084485edc86ee8293d852d93fd5a50501678dd516d0fbb6889d1"
 name="redmine_tags"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
+# https://github.com/AlphaNodes/additionals
+src="https://github.com/AlphaNodes/additionals/archive/2.0.19.zip"
+hash="27d74d9edb7ad50e10573bd58a69812b0973ee82b7cbc6e445bc0fa61283abe5"
+name="additionals"
+/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
+# Original https://github.com/gpstogis/redmine_oauth2_login
+# https://github.com/devent/redmine_oauth2_login
+src="https://github.com/devent/redmine_oauth2_login/archive/3.0.0.zip"
+hash="3449b829b30d112c78219f8c8091d3c842102cffb6791d78347b99188d501a73"
+name="redmine_oauth2_login"
+/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
+
