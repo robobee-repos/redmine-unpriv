@@ -72,6 +72,8 @@ Not all plugins are working with a particular Redmine version. Extended testing 
 | [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.3.0 |
 | [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | Commit from Jan 20, 2019 |
 | [redmine_tags](https://github.com/ixti/redmine_tags) | 4.0.0 |
+| [additionals](https://github.com/AlphaNodes/additionals) | 2.0.19 |
+| [redmine_oauth2_login](https://github.com/devent/redmine_oauth2_login) | 3.0.0 |
 
 ## Themes
 

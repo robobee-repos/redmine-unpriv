@@ -63,6 +63,8 @@ Not all plugins are working with a particular Redmine version. Extended testing 
 |"redmine&#95;issue&#95;templates":https://github.com/akiko-pusu/redmine_issue_templates|0.3.0|
 |"redmine&#95;dashboard":https://github.com/jgraichen/redmine_dashboard|Commit from Jan 20, 2019|
 |"redmine&#95;tags":https://github.com/ixti/redmine_tags|4.0.0|
+|"additionals":https://github.com/AlphaNodes/additionals|2.0.19|
+|"redmine&#95;oauth2&#95;login":https://github.com/devent/redmine_oauth2_login|3.0.0|
 
 h2(#themes). Themes
 
@@ -80,7 +82,6 @@ h2(#test). Test
 The docker-compose file @test.yaml@ can be used to startup MySQL and the Redmine base containers. Redmine can be then accessed from @localhost:8080@.
 
 bc. docker-compose -f test.yaml up
-
 
 h2(#license). License
 

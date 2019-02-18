@@ -1,0 +1,60 @@
+version: '3.1'
+
+services:
+
+  redmine:
+    image: robobeerun/redmine:latest
+    ports:
+      - 3000:3000
+    environment:
+      DEBUG: "true"
+      REDMINE_DB_POSTGRES: "db"
+      REDMINE_DB_USERNAME: "redminedb"
+      REDMINE_DB_DATABASE: "redminedb"
+      REDMINE_DB_PASSWORD: "redminedb"
+      REDMINE_PLUGINS_MIGRATE: "true"
+      SYNC_ENABLED: "false"
+    links:
+      - db
+      - keycloak
+    volumes:
+      - "./root/html:/var/www/html"
+      - "./redmine-in:/redmine-in"
+
+  db:
+    image: postgres:10.5
+    environment:
+      POSTGRES_USER: "redminedb"
+      POSTGRES_PASSWORD: "redminedb"
+      POSTGRES_DB: "redminedb"
+    volumes:
+      - "./root/db:/var/lib/postgresql/data"
+
+  keycloak:
+    image: jboss/keycloak:4.8.3.Final
+    ports:
+      - 8080:8080
+    environment:
+      JAVA_OPTS: "-Xms200m -Xmx200m -XX:MetaspaceSize=200m -XX:MaxMetaspaceSize=200m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true"
+      PROXY_ADDRESS_FORWARDING: "true"
+      KEYCLOAK_USER: "admin"
+      KEYCLOAK_PASSWORD: "admin"
+      DB_VENDOR: "postgres"
+      DB_ADDR: dbkeycloak
+      DB_PORT: "5432"
+      DB_USER: "keycloak"
+      DB_PASSWORD: "keycloak"
+      DB_DATABASE: "keycloakdb"
+      POSTGRES_PORT: ""
+    links:
+      - dbkeycloak
+
+  dbkeycloak:
+    image: postgres:10.5
+    environment:
+      POSTGRES_USER: "keycloak"
+      POSTGRES_PASSWORD: "keycloak"
+      POSTGRES_DB: "keycloakdb"
+    volumes:
+      - "./root/dbkeycloak:/var/lib/postgresql/data"
+
