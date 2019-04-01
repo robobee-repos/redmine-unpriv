@@ -1,4 +1,4 @@
-FROM redmine:4.0.1
+FROM redmine:4.0.2
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
@@ -67,6 +67,7 @@ RUN set -eux; \
   rm freetds.tar.bz2; \
   ( cd freetds && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" && ./configure --build="$gnuArch" --enable-silent-rules && make -j "$(nproc)" && make -C src install && make -C include install ); \
   rm -rf freetds; \
+  gosu redmine gem install json -v '2.2.0'; \
   gosu redmine bundle config build.tiny_tds --enable-system-freetds; \
   gosu redmine bundle install --without development test; \
   for adapter in mysql2 postgresql sqlserver sqlite3; do \
