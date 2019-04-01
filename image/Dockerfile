@@ -129,7 +129,7 @@ ENV DEBUG="false" \
   PIWIK_ID_SITE=1 \
   PIWIK_URL=localhost \
   PIWIK_USE_ASYNC=false \
-  PIWIK_DISABLED=true
+  PIWIK_ENABLED=false
 
 # Puma Control App TCP Socket
 EXPOSE 9293

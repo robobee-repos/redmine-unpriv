@@ -212,7 +212,9 @@ EOF
 
 function setup_piwik() {
   cd "$WEB_ROOT"
-  cat << EOF > config/piwik.yml
+  if [[ "${PIWIK_ENABLED}x" -eq "truex" ]]; then
+    PIWIK_DISABLED=false
+    cat << EOF > config/piwik.yml
 production:
   piwik:
     id_site: ${PIWIK_ID_SITE}
@@ -229,6 +231,7 @@ EOF
 
 EOM
 
-  file=app/views/layouts/base.html.erb
-  sed -i -e "/<%= call_hook :view_layouts_base_body_bottom %>/r $tmp" /usr/src/redmine/$file
+    file=app/views/layouts/base.html.erb
+    sed -i -e "/<%= call_hook :view_layouts_base_body_bottom %>/r $tmp" /usr/src/redmine/$file
+  fi
 }

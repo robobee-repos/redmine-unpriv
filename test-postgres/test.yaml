@@ -17,7 +17,7 @@ services:
       PIWIK_ID_SITE: "2"
       PIWIK_URL: "piwik"
       PIWIK_USE_ASYNC: "true"
-      PIWIK_DISABLED: "false"
+      PIWIK_ENABLED: "true"
     links:
       - db
     volumes:
