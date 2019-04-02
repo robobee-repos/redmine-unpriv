@@ -50,8 +50,8 @@ RUN set -eux; \
   ; \
   rm -rf /var/lib/apt/lists/*; \
   \
-  sed -ie "s/gem 'puma', '~> 3.7'/gem 'puma', '= 3.12.0'/" Gemfile; \
-  echo 'gem "puma", "= 3.12.0"' >> Gemfile; \
+  sed -ie "s/gem 'puma', '~> 3.7'/gem 'puma', '= 3.12.1'/" Gemfile; \
+  echo 'gem "puma", "= 3.12.1"' >> Gemfile; \
   echo 'gem "piwik_analytics", "~> 1.0.2"' >> Gemfile; \
   echo 'gem "temple", "~> 0.8.0"' >> Gemfile; \
   echo 'gem "dalli", "~> 2.7.9"' >> Gemfile; \
