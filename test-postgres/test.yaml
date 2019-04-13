@@ -13,11 +13,11 @@ services:
       REDMINE_DB_DATABASE: "redminedb"
       REDMINE_DB_PASSWORD: "redminedb"
       REDMINE_PLUGINS_MIGRATE: "true"
-      SYNC_ENABLED: "false"
+      SYNC_ENABLED: "true"
       PIWIK_ID_SITE: "2"
       PIWIK_URL: "piwik"
       PIWIK_USE_ASYNC: "true"
-      PIWIK_DISABLED: "false"
+      PIWIK_ENABLED: "true"
     links:
       - db
     volumes:

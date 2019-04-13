@@ -1,4 +1,4 @@
-FROM redmine:4.0.1
+FROM redmine:4.0.2
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
@@ -50,8 +50,8 @@ RUN set -eux; \
   ; \
   rm -rf /var/lib/apt/lists/*; \
   \
-  sed -ie "s/gem 'puma', '~> 3.7'/gem 'puma', '= 3.12.0'/" Gemfile; \
-  echo 'gem "puma", "= 3.12.0"' >> Gemfile; \
+  sed -ie "s/gem 'puma', '~> 3.7'/gem 'puma', '= 3.12.1'/" Gemfile; \
+  echo 'gem "puma", "= 3.12.1"' >> Gemfile; \
   echo 'gem "piwik_analytics", "~> 1.0.2"' >> Gemfile; \
   echo 'gem "temple", "~> 0.8.0"' >> Gemfile; \
   echo 'gem "dalli", "~> 2.7.9"' >> Gemfile; \
@@ -67,6 +67,7 @@ RUN set -eux; \
   rm freetds.tar.bz2; \
   ( cd freetds && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" && ./configure --build="$gnuArch" --enable-silent-rules && make -j "$(nproc)" && make -C src install && make -C include install ); \
   rm -rf freetds; \
+  gosu redmine gem install json -v '2.2.0'; \
   gosu redmine bundle config build.tiny_tds --enable-system-freetds; \
   gosu redmine bundle install --without development test; \
   for adapter in mysql2 postgresql sqlserver sqlite3; do \
@@ -128,7 +129,7 @@ ENV DEBUG="false" \
   PIWIK_ID_SITE=1 \
   PIWIK_URL=localhost \
   PIWIK_USE_ASYNC=false \
-  PIWIK_DISABLED=true
+  PIWIK_ENABLED=false
 
 # Puma Control App TCP Socket
 EXPOSE 9293
