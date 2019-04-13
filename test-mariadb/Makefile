@@ -1,7 +1,7 @@
 include ../utils/Makefile.help
 include ../utils/Makefile.functions
 
-NAME := redmine
+NAME := redmine-mysql
 
 test: setup ##@targets Starts test containers.
 	docker-compose -p $(NAME) -f test.yaml up

@@ -1,7 +1,7 @@
 include ../utils/Makefile.help
 include ../utils/Makefile.functions
 
-NAME := redmine-memcached
+NAME := redmine-postgres
 
 test: setup ##@targets Starts test containers.
 	docker-compose -p $(NAME) -f test.yaml up
@@ -21,8 +21,10 @@ clean-redmine: stop ##@targets Removes docker containers and created files.
 	sudo rm -rf root/html root/bundle
 
 setup:
-	for p in html ; do \
-	mkdir -p root/$$p; \
-	chmod o+rwX root/$$p ; \
-	done
+	mkdir -p root/html
+	sudo chmod o+rwX root/html
+	mkdir -p root/bundle
+	sudo chmod o+rwX root/bundle
+	mkdir -p root/db
+	sudo chmod o+rwX root/db
 .PHONY: setup

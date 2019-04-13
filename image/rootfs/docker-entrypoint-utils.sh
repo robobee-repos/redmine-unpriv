@@ -57,7 +57,7 @@ function sync_dir() {
     fi
   fi
   cd "${target}"
-  $RSYNC_CMD -rlD ${dir}/. .
+  $RSYNC_CMD -rlDc ${dir}/. .
 }
 
 function do_sed() {
@@ -90,4 +90,35 @@ function set_debug() {
     BASH_CMD="bash -x"
     RSYNC_CMD="rsync -v"
   fi
+}
+
+function is_sync_enabled() {
+  if [[ "$SYNC_ENABLED" == "true" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function check_update_time() {
+  dataDir="$1"; shift
+  cd $dataDir
+  if [[ -f ".last_update" ]]; then
+    last_update=$(cat .last_update)
+    current_time=$(date +%s)
+    time_diff=$((current_time-last_update))
+    if [[ $time_diff -gt $SYNC_TIME_S ]]; then
+      return 0
+    else
+      return 1
+    fi
+  else
+    return 0
+  fi
+}
+
+function update_update_time() {
+  dataDir="$1"; shift
+  cd $dataDir
+  echo -n "`date +%s`" > .last_update
 }

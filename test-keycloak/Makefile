@@ -1,7 +1,8 @@
 include ../utils/Makefile.help
 include ../utils/Makefile.functions
 
-NAME := redmine-memcached
+NAME := redmine-keycloak
+VOLUMES := html bundle db dbkeycloak
 
 test: setup ##@targets Starts test containers.
 	docker-compose -p $(NAME) -f test.yaml up
@@ -21,8 +22,8 @@ clean-redmine: stop ##@targets Removes docker containers and created files.
 	sudo rm -rf root/html root/bundle
 
 setup:
-	for p in html ; do \
-	mkdir -p root/$$p; \
-	chmod o+rwX root/$$p ; \
+	for dir in $(VOLUMES); do \
+	mkdir -p root/$${dir}; \
+	sudo chmod o+rwX root/$${dir}; \
 	done
 .PHONY: setup

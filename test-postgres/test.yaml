@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+
+  redmine:
+    image: robobeerun/redmine:latest
+    ports:
+      - 3000:3000
+    environment:
+      DEBUG: "true"
+      REDMINE_DB_POSTGRES: "db"
+      REDMINE_DB_USERNAME: "redminedb"
+      REDMINE_DB_DATABASE: "redminedb"
+      REDMINE_DB_PASSWORD: "redminedb"
+      REDMINE_PLUGINS_MIGRATE: "true"
+      SYNC_ENABLED: "true"
+      PIWIK_ID_SITE: "2"
+      PIWIK_URL: "piwik"
+      PIWIK_USE_ASYNC: "true"
+      PIWIK_ENABLED: "true"
+    links:
+      - db
+    volumes:
+      - "./root/html:/var/www/html"
+      - "./redmine-in:/redmine-in"
+
+  db:
+    image: postgres:10.5
+    environment:
+      POSTGRES_USER: "redminedb"
+      POSTGRES_PASSWORD: "redminedb"
+      POSTGRES_DB: "redminedb"
+    volumes:
+      - "./root/db:/var/lib/postgresql/data"
