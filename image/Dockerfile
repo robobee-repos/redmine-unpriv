@@ -1,4 +1,4 @@
-FROM redmine:4.0.2
+FROM redmine:4.0.3
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE

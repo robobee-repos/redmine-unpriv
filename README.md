@@ -69,11 +69,10 @@ Not all plugins are working with a particular Redmine version. Extended testing 
 | [redmine_theme_changer](https://github.com/haru/redmine_theme_changer) | 0.4.0 |
 | [redmine_lightbox2](https://github.com/paginagmbh/redmine_lightbox2) | 0.5.0 |
 | [clipboard_image_paste](https://github.com/Utopism/clipboard_image_paste) | Commit Nov 20, 2018 |
-| [redmine_graphs](https://github.com/Utopism/redmine-graphs-plugin) | Commit Nov 19, 2018 |
 | [redmine_issue_templates](https://github.com/akiko-pusu/redmine_issue_templates) | 0.3.1 |
 | [redmine_dashboard](https://github.com/jgraichen/redmine_dashboard) | Commit from Jan 20, 2019 |
 | [redmine_tags](https://github.com/ixti/redmine_tags) | 4.0.0 |
-| [AlphaNodes additionals](https://github.com/AlphaNodes/additionals) | 2.0.19 |
+| [AlphaNodes additionals](https://github.com/AlphaNodes/additionals) | 2.0.20 |
 | [redmine_oauth2_login](https://github.com/devent/redmine_oauth2_login) | 3.0.0 |
 
 ## Themes

@@ -29,16 +29,9 @@ hash="946d67172f1d3f83f2266d28e2ac1eec21c108273bf13b6e9edd090d9a01a589"
 name="clipboard_image_paste"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
-# https://github.com/Utopism/redmine-graphs-plugin
-# Commit from  19 Nov 2018
-src="https://github.com/Utopism/redmine-graphs-plugin/archive/51e3fe2944ed3543efa3f3b9bbc4e28d8d418048.zip"
-hash="c1a1992dd15b7587330adcfe1d43ee2e239a87665a8989e0f4e38078b115db33"
-name="redmine_graphs"
-/install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
-
 # https://github.com/akiko-pusu/redmine_issue_templates
-src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.3.0.zip"
-hash="3277b3fa93a144bd79456f29241b5f0ff4f763fb9a18af33fe6662fe1cab1461"
+src="https://github.com/akiko-pusu/redmine_issue_templates/archive/0.3.1.zip"
+hash="0822b1452485d8043253e8e8bae2332ca2f546f0a8661c2943728c9304024282"
 name="redmine_issue_templates"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
@@ -56,8 +49,8 @@ name="redmine_tags"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
 # https://github.com/AlphaNodes/additionals
-src="https://github.com/AlphaNodes/additionals/archive/2.0.19.zip"
-hash="27d74d9edb7ad50e10573bd58a69812b0973ee82b7cbc6e445bc0fa61283abe5"
+src="https://github.com/AlphaNodes/additionals/archive/2.0.20.zip"
+hash="fede1ff72dc7ea919f9ed25d9c169e3eeb82c4273beeaa33b94c8ef0bf66d630"
 name="additionals"
 /install-redmine-plugin.sh "$src" "$name" "$hash" downloadOnly
 
